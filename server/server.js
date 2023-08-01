@@ -6,7 +6,7 @@ const app = express();
 const PORT = 3000;
 
 // import controller file
-const controller = require('./controller.js');
+const controller = require('./controllers/controller.js');
 
 // enable cors + parse json
 app.use(cors());

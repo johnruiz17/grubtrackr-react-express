@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import '../styles/main.scss';
-import { useDispatch } from 'react-redux';
 import ReviewContainer from '../containers/ReviewContainer.jsx';
 import RestaurantDisplay from '../containers/RestaurantDisplay.jsx';
 import RestaurantQuery from '../containers/RestaurantQuery.jsx';

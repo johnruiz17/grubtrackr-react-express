@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { updateQuery } from '../features/querySlice';
-import { updateRest } from '../features/restaurantsSlice';
+import { updateQuery } from '../slices/querySlice';
+import { updateRest } from '../slices/restaurantsSlice';
 //import wobbe from '../frontend/assets/logo.png';
 
 const RestaurantQuery = () => {
