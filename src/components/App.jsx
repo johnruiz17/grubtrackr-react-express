@@ -13,12 +13,15 @@ const App = () => {
 				<Route
 					path='/'
 					element={
+            <>
+            <Navbar />
 						<div className='app'>
 							<h1>(rec(commend), res(taurants), next)</h1>
 							<RestaurantQuery />
 							<RestaurantDisplay />
 							<ReviewContainer />
 						</div>
+            </>
 					}
 				/>
 				<Route path='/restaurant' element={<div>render restaurant component here</div>} />
