@@ -53,11 +53,13 @@ export default function Map() {
   });
 
   const restaurants = useSelector((state) => state.restaurants.restList);
+  console.log(restaurants);
 
   useEffect(() => {
     async function setCenter() {
       const res = await fetch('http://localhost:3000/google/');
       const center = await res.json();
+      console.log(center);
 
       mapRef.current?.panTo(center);
       dispatch(moveCenter(center));
@@ -76,14 +78,17 @@ export default function Map() {
         onLoad={onLoad}
         mapContainerClassName='map_container'
       >
-        {restaurants && (
+        {restaurants.length > 0 && (
           <>
             {restaurants.map((rest) => {
               console.log(rest);
               return (
                 <Marker
                   key={rest._id}
-                  position={rest.loc}
+                  position={{
+                    lat: rest.coordinates.latitude,
+                    lng: rest.coordinates.longitude,
+                  }}
                   title={rest.name}
                   onClick={() => handleActiveMarker(rest._id)}
                 >

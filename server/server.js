@@ -9,7 +9,7 @@ const PORT = 3000;
 const restaurantRouter = require('./routes/restaurantRoutes.js');
 
 // import restaurantRoutes router file
-const reviewRouter = require('./routes/reviewRoutes.js')
+const reviewRouter = require('./routes/reviewRoutes.js');
 
 // import googleRoutes router fil
 const googleRouter = require('./routes/googleRoutes.js');
@@ -26,7 +26,6 @@ app.use('/google', googleRouter);
 
 // route handler that will load the page upon initial render
 app.use('/', restaurantRouter);
-
 
 // unknown route handler
 app.use((req, res) => res.sendStatus(404));
