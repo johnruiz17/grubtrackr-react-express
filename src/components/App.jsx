@@ -16,7 +16,6 @@ const App = () => {
             <>
             <Navbar />
 						<div className='app'>
-							<h1>(rec(commend), res(taurants), next)</h1>
 							<RestaurantQuery />
 							<RestaurantDisplay />
 							<ReviewContainer />
