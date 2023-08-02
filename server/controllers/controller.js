@@ -23,15 +23,9 @@ controller.fetchYelpRestaurants = async (req, res, next) => {
     // else destructure the route parameter
     if (req.body.location) {
       location = req.body.location;
-
-    // if [location] route parameter doesn't exist, declare location variable and assign "San Francisco" to it
-    // else destructure the route parameter
-    if (req.body.location) {
-      location = req.body.location;
     } else {
       location = 'San Francisco';
     }
-    console.log(location);
 
     // setting the url with the search parameter inside of it
     // LIMITED TO TEN RESULTS FOR TESTING
@@ -40,7 +34,6 @@ controller.fetchYelpRestaurants = async (req, res, next) => {
     const data = await fetch(url, { headers });
     const restaurantData = await data.json();
     res.locals.restaurants = restaurantData;
-    console.log(restaurantData);
 
     return next();
   } catch (err) {
