@@ -15,11 +15,11 @@ const reviewRouter = require('./routes/reviewRoutes.js')
 app.use(cors());
 app.use(express.json());
 
-// restaurantRouter router handler for '/restaurants' url
-app.use('/restaurants', restaurantRouter);
+// route handler that will invoke reviewRouter middleware once a restaurant card is clicked
+app.use('/restaurant', reviewRouter);
 
-// reviewRouter route handler for 'reviews' url
-app.use('/reviews', reviewRouter);
+// route handler that will load the page upon initial render
+app.use('/', restaurantRouter);
 
 
 // unknown route handler

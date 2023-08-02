@@ -10,13 +10,19 @@ const controller = require('../controllers/controller.js');
 // declaring router for restaurant routes
 const restaurantRouter = express.Router();
 
-restaurantRouter.get('/', controller.getRestaurants, (req, res) => {
+
+// fetching SF restaurant data from Yelp API upon initial app load
+restaurantRouter.get('/', controller.fetchYelpRestaurants, (req, res) => {
   res.status(200).json(res.locals.restaurants);
 });
 
-restaurantRouter.post('/', controller.getRestaurants, (req, res) => {
+// fetching from Yelp API based on the search bar result
+restaurantRouter.get('/:location', controller.fetchYelpRestaurants, (req, res) => {
   res.status(200).json(res.locals.restaurants);
 });
+
+
+
 
 
 module.exports = restaurantRouter;

@@ -2,58 +2,75 @@
 const db = require('../models/models.js');
 const format = require('pg-format');
 
+// declaring controller object to be exported
 const controller = {};
 
-// middleware: obtain restaurants matching selected criteria from 'restaurants' in DB
-controller.getRestaurants = async (req, res, next) => {
-  try {
-    let query = `SELECT * FROM restaurants`;
+// declaring headers object with necessary authorization information for the Yelp API call
+const headers = {
+  Authorization: 'Bearer k-IATHt6W-L8KtEONPuMqU10UG7KAxKjWX_imA2cFrDsDjsPtxhwpemzXoQ85TA3FvKzmLj0KRrzW8s_B7IvG2zHLiJOCoSlm-nRqr5bIpxUqFdRS1GHZJweMZ_JZHYx',
+  Accept: 'application/json',
+};
 
-    let firstParam = true;
-    for (const key in req.body) {
-      const request = req.body;
-      if (request[key] !== '') {
-        if (key === 'location_radius') query += `${firstParam ? ' WHERE' : ' AND'} ${key} < ${request[key]}`
-        else query += `${firstParam ? ' WHERE' : ' AND'} ${key} = '${request[key]}'`;
-        firstParam = false;
-      }
+// fetching from Yelp API
+controller.fetchYelpRestaurants = async (req, res, next) => { 
+  try {
+    // declaring location variable
+    let location;
+
+    // if [location] route parameter doesn't exist, declare location variable and assign "San Francisco" to it
+    // else destructure the route parameter
+    if (req.params.location) {
+      location = req.params.location;
+    } else {
+      location = 'San Francisco';
     }
 
-    const data = await db.query(query);
-    console.log('data test', data.rows);
-    res.locals.restaurants = data.rows;
+    // setting the url with the search parameter inside of it
+    // LIMITED TO TEN RESULTS FOR TESTING
+    const url = `https://api.yelp.com/v3/businesses/search?location=${location}&sort_by=best_match&limit=20`
+
+    const data = await fetch(url, { headers });
+    const restaurantData = await data.json();
+    res.locals.restaurants = restaurantData;
+
     return next();
-  } catch (err) {
+  }
+  catch (err) {
     return next({
-      log: `Express caught error in controller.getRestaurants: ${err}`,
+      log: `Express caught error in controller.fetchYelpRestaurants: ${err}`,
       message: {
-        err: 'An error occurred with fetching restaurant information.',
+        err: 'An error occurred with fetching restaurant information from Yelp.',
       },
     });
   }
 };
 
-// middleware: submit review information to 'reviews' in DB
-controller.submitReview = async (req, res, next) => {
+
+controller.showReviews = async (req, res, next) => { 
   try {
-    const { staffAttitude, service, review, recommendation, bathroomVibe } =
-      req.body;
+    // destructuring the id from req.params
+    const { id } = req.params;
 
-    const reviewSubmission = `INSERT INTO review (staff_attitude, service, review, recommendation, bathroom_vibe)
-    VALUES ('${staffAttitude}', '${service}', '${review}', '${recommendation}', '${bathroomVibe}')
-    RETURNING *`;
-    const data = await db.query(reviewSubmission);
-    // console.log('data test', data.rows);
-    res.locals.addedReview = data.rows[0];
+    // setting the url with the search parameter inside of it
+    // LIMITED TO TEN RESULTS FOR TESTING
+    const url = `https://api.yelp.com/v3/businesses/${id}/reviews?limit=10&sort_by=yelp_sort`
+
+    const data = await fetch(url, { headers });
+    const reviews = await data.json();
+    res.locals.reviews = reviews;
+
     return next();
-  } catch (err) {
+  }
+  catch (err) {
     return next({
-      log: `Express caught error in controller.submitReview: ${err}`,
+      log: `Express caught error in controller.showReviews: ${err}`,
       message: {
-        err: 'An error occurred with submitting your review.',
+        err: 'An error occurred with fetching review information from Yelp.',
       },
     });
   }
 };
+
+
 
 module.exports = controller;
