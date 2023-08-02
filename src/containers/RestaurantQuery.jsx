@@ -5,60 +5,73 @@ import { updateRest } from '../slices/restaurantsSlice';
 //import wobbe from '../frontend/assets/logo.png';
 
 const RestaurantQuery = () => {
-	// create an action for one drop-down
-	const query = useSelector(state => state.query);
-	const dispatch = useDispatch();
+  // create an action for one drop-down
+  const query = useSelector((state) => state.query);
+  const dispatch = useDispatch();
 
-	/*
+  /*
 - query will include all of the query selectors we need to filter our restaurants
 - get request to restaurants with the query parameters
 - call updateRest and set to new list of restaurants
 
 */
-	let location = '';
+  let location = '';
 
-	const fetchRestaurants = async location => {
-		try {
-			const backendUrl = 'http://localhost:3000/';
-			const jsonData = await fetch(backendUrl, {
-				method: 'GET',
-				headers: {
-					'Content-Type': 'Application/JSON'
-				},
-				body: JSON.stringify(location)
-			});
-			const restaurantData = await jsonData.json();
-			console.log(restaurantData);
-			dispatch(updateRest(restaurantData));
-		} catch (err) {
-			console.log(`There was an error fetching restaurant data: ${err}`);
-		}
-	};
+  const fetchRestaurants = async (location) => {
+    try {
+      const backendUrl = 'http://localhost:3000/';
+      const jsonData = await fetch(backendUrl, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'Application/JSON',
+        },
+        body: JSON.stringify(location),
+      });
+      const restaurantData = await jsonData.json();
+      console.log(restaurantData);
+      dispatch(updateRest(restaurantData));
+    } catch (err) {
+      console.log(`There was an error fetching restaurant data: ${err}`);
+    }
+  };
 
-	const getInputText = e => {
-		location = e.target.value;
-	};
+  const getInputText = (e) => {
+    location = e.target.value;
+  };
 
-	const searchHandler = e => {
-		console.log(location);
-		fetchRestaurants(location);
-	};
+  const searchHandler = (e) => {
+    console.log(location);
+    fetchRestaurants(location);
+  };
 
-	// useEffect(() => {
-	// 	fetchRestaurants();
-	// }, [query]);
+  // useEffect(() => {
+  // 	fetchRestaurants();
+  // }, [query]);
 
-	return (
-		<div>
-			<script async src='//embedr.flickr.com/assets/client-code.js' charset='utf-8'></script>
-			<div className='queryFormContainer'>
-				<label id='nameLabel' htmlFor='restaurant'>
-					Location:
-					<input onChange={getInputText} placeholder='Search by location...' name='restaurant' type='text' id='restaurantName' />
-				</label>
-				<button onClick={searchHandler}>Search</button>
+  return (
+    <div>
+      <script
+        async
+        src='//embedr.flickr.com/assets/client-code.js'
+        charset='utf-8'
+      ></script>
+      <div className='queryFormContainer'>
+        <label
+          id='nameLabel'
+          htmlFor='restaurant'
+        >
+          Location:
+          <input
+            onChange={getInputText}
+            placeholder='Search by location...'
+            name='restaurant'
+            type='text'
+            id='restaurantName'
+          />
+        </label>
+        <button onClick={searchHandler}>Search</button>
 
-				{/* <label className='dropDownLabel' htmlFor='cuisine'>
+        {/* <label className='dropDownLabel' htmlFor='cuisine'>
           Cuisine:
           <select
             className='dropDown'
@@ -163,9 +176,9 @@ const RestaurantQuery = () => {
             <option value='25'>25 km</option>
           </select>
         </label> */}
-			</div>
-		</div>
-	);
+      </div>
+    </div>
+  );
 };
 /*
 Location input field removed
