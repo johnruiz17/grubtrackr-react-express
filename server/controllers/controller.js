@@ -9,22 +9,22 @@ controller.getRestaurants = async (req, res, next) => {
   try {
     let query = `SELECT * FROM restaurants`;
 
-    let firstParam = true;
-    for (const key in req.body) {
-      const request = req.body;
-      if (request[key] !== '') {
-        if (key === 'location_radius')
-          query += `${firstParam ? ' WHERE' : ' AND'} ${key} < ${request[key]}`;
-        else
-          query += `${firstParam ? ' WHERE' : ' AND'} ${key} = '${
-            request[key]
-          }'`;
-        firstParam = false;
-      }
+    // if [location] route parameter doesn't exist, declare location variable and assign "San Francisco" to it
+    // else destructure the route parameter
+    if (req.body.location) {
+      location = req.body.location;
+    } else {
+      location = 'San Francisco';
     }
 
-    const data = await db.query(query);
-    res.locals.restaurants = data.rows;
+    // setting the url with the search parameter inside of it
+    // LIMITED TO TEN RESULTS FOR TESTING
+    const url = `https://api.yelp.com/v3/businesses/search?location=${location}&sort_by=best_match&limit=20`;
+
+    const data = await fetch(url, { headers });
+    const restaurantData = await data.json();
+    res.locals.restaurants = restaurantData;
+
     return next();
   } catch (err) {
     return next({

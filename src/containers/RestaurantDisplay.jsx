@@ -16,17 +16,16 @@ const RestaurantDisplay = () => {
       const backendUrl = 'http://localhost:3000/restaurants';
       const jsonData = await fetch(backendUrl);
       const restaurantData = await jsonData.json();
-      dispatch(updateRest(restaurantData));
+      dispatch(updateRest(restaurantData.businesses));
     } catch (err) {
       console.log(`There was an error fetching restaurant data: ${err}`);
     }
   };
 
-
   // fetchRestaurants();
   useEffect(() => {
     fetchRestaurants();
-  }, [])
+  }, []);
 
   // grab that data --> array of objects
 
@@ -38,7 +37,12 @@ const RestaurantDisplay = () => {
 
   //iterate through the array of Restaurant objects
   restaurant.forEach((el, index) => {
-    displayArray.push(<RestaurantCard key={index} info={el} />);
+    displayArray.push(
+      <RestaurantCard
+        key={index}
+        info={el}
+      />
+    );
   });
   //create an instance of Restaurant Card for each object
   //pass the object down as a prop
