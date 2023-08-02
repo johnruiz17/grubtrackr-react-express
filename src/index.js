@@ -1,15 +1,21 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import App from './components/App.jsx';
 import { store } from './redux/store';
 import { Provider } from 'react-redux';
 import './styles/main.scss';
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import GoogleMap, { } from './components/GoogleMap';
 
-const rootElement = document.getElementById('root');
-const root = ReactDOM.createRoot(rootElement);
+const router = createBrowserRouter([
+  {
+    path: '/',
+    element: <div id="map"><GoogleMap /></div>,
+  },
+]);
 
+const root = ReactDOM.createRoot(document.querySelector('#root'));
 root.render(
   <Provider store={store}>
-    <App />
+    <RouterProvider router={router} />
   </Provider>
 );
