@@ -16,11 +16,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import { moveCenter } from '../slices/googleSlice';
 const { GOOGLE_API_KEY } = require('../../server/envVars');
 
-async function getCenter() {
+async function setCenter() {
   const res = await fetch('http://localhost:3000/google/');
-  const center = await res.json();
-
-  return center;
+  return await res.json();
 }
 
 export default function Map() {
@@ -52,10 +50,11 @@ export default function Map() {
   }
 
   const onLoad = useCallback(async (map) => {
-    const center = await getCenter();
-    mapRef.current = map;
-    mapRef.current.panTo(center);
+    const center = await setCenter();
+
     dispatch(moveCenter(center));
+    mapRef.current = map;
+    mapRef.current?.panTo(center);
   }, []);
   // const restaurants = useMemo(() => filterRestaurants, [state.google.center]);
   const center = useSelector((state) => {
@@ -67,7 +66,7 @@ export default function Map() {
   return isLoaded ? (
     <div id='mapiframe'>
       <GoogleMap
-        zoom={defaultZoom}
+        zoom={14}
         center={defaultCenter}
         options={options}
         onLoad={onLoad}
@@ -79,15 +78,15 @@ export default function Map() {
               console.log(rest);
               return (
                 <Marker
-                  key={rest._id}
+                  key={rest.id}
                   position={{
                     lat: rest.coordinates.latitude,
                     lng: rest.coordinates.longitude,
                   }}
                   title={rest.name}
-                  onClick={() => handleActiveMarker(rest._id)}
+                  onClick={() => handleActiveMarker(rest.id)}
                 >
-                  {activeMarker === rest._id ? (
+                  {activeMarker === rest.id ? (
                     <InfoWindow onCloseClick={() => setActiveMarker(null)}>
                       <div>{rest.name}</div>
                     </InfoWindow>
