@@ -46,16 +46,16 @@ const RestaurantQuery = () => {
       ></script>
       <form className='queryFormContainer'>
         <label id='nameLabel' htmlFor='restaurant'>
-          Restaurant:
+          Location: 
           <input
-            placeholder='Restaurant Name...'
+            placeholder='Search by location...'
             name='restaurant'
             type='text'
             id='restaurantName'
             onChange={(e) => dispatch(updateQuery(['name', e.target.value]))}
           />
         </label>
-        <label className='dropDownLabel' htmlFor='cuisine'>
+        {/* <label className='dropDownLabel' htmlFor='cuisine'>
           Cuisine:
           <select
             className='dropDown'
@@ -159,7 +159,7 @@ const RestaurantQuery = () => {
             <option value='20'>20 km</option>
             <option value='25'>25 km</option>
           </select>
-        </label>
+        </label> */}
       </form>
     </div>
   );

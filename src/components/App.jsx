@@ -3,6 +3,7 @@ import '../styles/main.scss';
 import ReviewContainer from '../containers/ReviewContainer.jsx';
 import RestaurantDisplay from '../containers/RestaurantDisplay.jsx';
 import RestaurantQuery from '../containers/RestaurantQuery.jsx';
+import Navbar from './Navbar.jsx';
 
 {
   /* <h1>This is a header</h1>
@@ -12,12 +13,14 @@ import RestaurantQuery from '../containers/RestaurantQuery.jsx';
 
 const App = () => {
   return (
+    <>
+    <Navbar />
     <div id='app'>
-      <h1>(rec(commend), res(taurants), next)</h1>
       <RestaurantQuery />
       <RestaurantDisplay />
       <ReviewContainer />
     </div>
+    </>
   );
 };
 
