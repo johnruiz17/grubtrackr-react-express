@@ -2,10 +2,9 @@ import React, { useState } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import '../styles/main.scss';
 import ReviewContainer from '../containers/ReviewContainer.jsx';
-import RestaurantDisplay from '../containers/RestaurantDisplay.jsx';
 import RestaurantQuery from '../containers/RestaurantQuery.jsx';
 import Navbar from './Navbar.jsx';
-import Map from './Map';
+import Bodycontainer from '../containers/Bodycontainer.jsx';
 
 const App = () => {
   return (
@@ -18,10 +17,9 @@ const App = () => {
               <Navbar />
               <div className='app'>
                 <RestaurantQuery />
-                <RestaurantDisplay />
+                <Bodycontainer />
                 <ReviewContainer />
               </div>
-              <Map />
             </>
           }
         />

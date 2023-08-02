@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { updateQuery } from '../slices/querySlice';
 import { updateRest } from '../slices/restaurantsSlice';
+import { moveCenter } from '../slices/googleSlice';
 //import wobbe from '../frontend/assets/logo.png';
 
 const RestaurantQuery = () => {
@@ -15,27 +16,45 @@ const RestaurantQuery = () => {
 - call updateRest and set to new list of restaurants
 
 */
+  let location = '';
 
-  const fetchRestaurants = async () => {
+  const fetchRestaurants = async (location) => {
     try {
-      const backendUrl = 'http://localhost:3000/restaurants';
+      const backendUrl = 'http://localhost:3000/';
       const jsonData = await fetch(backendUrl, {
         method: 'POST',
         headers: {
           'Content-Type': 'Application/JSON',
+          Accept: 'application/json',
         },
-        body: JSON.stringify(query),
+        body: JSON.stringify({ location }),
       });
       const restaurantData = await jsonData.json();
-      dispatch(updateRest(restaurantData));
+      console.log(restaurantData);
+      dispatch(updateRest(restaurantData.businesses));
+
+      const newCenter = {
+        lat: restaurantData.region.center.latitude,
+        lng: restaurantData.region.center.longitude,
+      };
+      dispatch(moveCenter(newCenter));
     } catch (err) {
       console.log(`There was an error fetching restaurant data: ${err}`);
     }
   };
 
-  useEffect(() => {
-    fetchRestaurants();
-  }, [query]);
+  const getInputText = (e) => {
+    location = e.target.value;
+  };
+
+  const searchHandler = (e) => {
+    console.log(location);
+    fetchRestaurants(location);
+  };
+
+  // useEffect(() => {
+  // 	fetchRestaurants();
+  // }, [query]);
 
   return (
     <div>
@@ -44,17 +63,22 @@ const RestaurantQuery = () => {
         src='//embedr.flickr.com/assets/client-code.js'
         charset='utf-8'
       ></script>
-      <form className='queryFormContainer'>
-        <label id='nameLabel' htmlFor='restaurant'>
-          Location: 
+      <div className='queryFormContainer'>
+        <label
+          id='nameLabel'
+          htmlFor='restaurant'
+        >
+          Location:
           <input
+            onChange={getInputText}
             placeholder='Search by location...'
             name='restaurant'
             type='text'
             id='restaurantName'
-            onChange={(e) => dispatch(updateQuery(['name', e.target.value]))}
           />
         </label>
+        <button onClick={searchHandler}>Search</button>
+
         {/* <label className='dropDownLabel' htmlFor='cuisine'>
           Cuisine:
           <select
@@ -160,7 +184,7 @@ const RestaurantQuery = () => {
             <option value='25'>25 km</option>
           </select>
         </label> */}
-      </form>
+      </div>
     </div>
   );
 };

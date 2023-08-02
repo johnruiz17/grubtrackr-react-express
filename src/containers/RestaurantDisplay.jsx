@@ -23,9 +23,9 @@ const RestaurantDisplay = () => {
   };
 
   // fetchRestaurants();
-  useEffect(() => {
-    fetchRestaurants();
-  }, []);
+  // useEffect(() => {
+  //   fetchRestaurants();
+  // }, []);
 
   // grab that data --> array of objects
 
@@ -34,6 +34,7 @@ const RestaurantDisplay = () => {
   // restaurant
   //create an array to store all of the different RestaurantCards
   const displayArray = [];
+  console.log(restaurant);
 
   //iterate through the array of Restaurant objects
   restaurant.forEach((el, index) => {

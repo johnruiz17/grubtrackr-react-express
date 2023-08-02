@@ -10,9 +10,11 @@ const controller = require('../controllers/controller.js');
 // declaring router for restaurant routes
 const reviewRouter = express.Router();
 
-reviewRouter.post('/', controller.submitReview, (req, res) => {
-res.status(200).json(res.locals.addedReview)
+// fetching review data for individual restaurants using the id request parameter
+reviewRouter.get('/:id', controller.showReviews, (req, res) => {
+  res.status(200).json(res.locals.reviews);
 });
+
 
 
 module.exports = reviewRouter;

@@ -9,7 +9,7 @@ const PORT = 3000;
 const restaurantRouter = require('./routes/restaurantRoutes.js');
 
 // import restaurantRoutes router file
-const reviewRouter = require('./routes/reviewRoutes.js')
+const reviewRouter = require('./routes/reviewRoutes.js');
 
 // import googleRoutes router fil
 const googleRouter = require('./routes/googleRoutes.js');
@@ -18,14 +18,14 @@ const googleRouter = require('./routes/googleRoutes.js');
 app.use(cors());
 app.use(express.json());
 
-// restaurantRouter router handler for '/restaurants' url
-app.use('/restaurants', restaurantRouter);
-
-// reviewRouter route handler for 'reviews' url
-app.use('/reviews', reviewRouter);
+// route handler that will invoke reviewRouter middleware once a restaurant card is clicked
+app.use('/restaurant', reviewRouter);
 
 // googleRouter route handler for '/google' url
 app.use('/google', googleRouter);
+
+// route handler that will load the page upon initial render
+app.use('/', restaurantRouter);
 
 // unknown route handler
 app.use((req, res) => res.sendStatus(404));

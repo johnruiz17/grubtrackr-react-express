@@ -51,7 +51,7 @@ h1 {
   align-items: center;
   margin: 0 auto;
   width: 75%;
-  padding-top: 3em;
+  padding-top: 5em;
 }
 
 .resCard {
@@ -223,11 +223,6 @@ h1 {
   margin-bottom: 0.5em;
 }
 
-p2 {
-  font-size: 4em;
-  font-weight: bold;
-}
-
 .map_container {
   float: right;
   height: 800px;
@@ -251,7 +246,23 @@ p2 {
   margin-bottom: 0.5em;
 }
 
-p2 {
+.navbar p {
   font-size: 4em;
   font-weight: bold;
+}
+
+#bodycontainer {
+  display: flex;
+  flex-direction: row;
+  padding: 0.5em;
+}
+
+#mapiframe {
+  width: 50vw;
+  height: 50vw;
+  border: 0;
+  padding: 0.5em;
+  padding-top: 5em;
+  position: sticky;
+  top: 0;
 }
