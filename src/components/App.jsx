@@ -5,6 +5,7 @@ import ReviewContainer from '../containers/ReviewContainer.jsx';
 import RestaurantDisplay from '../containers/RestaurantDisplay.jsx';
 import RestaurantQuery from '../containers/RestaurantQuery.jsx';
 import Navbar from './Navbar.jsx';
+import Map from './Map';
 
 const App = () => {
   return (
@@ -20,6 +21,7 @@ const App = () => {
                 <RestaurantDisplay />
                 <ReviewContainer />
               </div>
+              <Map />
             </>
           }
         />

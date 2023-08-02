@@ -13,14 +13,17 @@ controller.getRestaurants = async (req, res, next) => {
     for (const key in req.body) {
       const request = req.body;
       if (request[key] !== '') {
-        if (key === 'location_radius') query += `${firstParam ? ' WHERE' : ' AND'} ${key} < ${request[key]}`
-        else query += `${firstParam ? ' WHERE' : ' AND'} ${key} = '${request[key]}'`;
+        if (key === 'location_radius')
+          query += `${firstParam ? ' WHERE' : ' AND'} ${key} < ${request[key]}`;
+        else
+          query += `${firstParam ? ' WHERE' : ' AND'} ${key} = '${
+            request[key]
+          }'`;
         firstParam = false;
       }
     }
 
     const data = await db.query(query);
-    console.log('data test', data.rows);
     res.locals.restaurants = data.rows;
     return next();
   } catch (err) {

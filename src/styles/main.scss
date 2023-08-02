@@ -229,9 +229,11 @@ p2 {
 }
 
 .map_container {
+  float: right;
   height: 800px;
   width: 800px;
 }
+
 .navbar {
   position: sticky;
   top: 0;

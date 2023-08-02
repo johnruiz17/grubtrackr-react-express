@@ -13,8 +13,11 @@ const googleSlice = createSlice({
     moveCenter: (s, a) => {
       s.center = a.payload;
     },
+    updateRestaurants: (s, a) => {
+      s.restaurants = a.payload;
+    },
   },
 });
 
-export const { moveCenter } = googleSlice.actions;
+export const { moveCenter, updateRestaurants } = googleSlice.actions;
 export default googleSlice.reducer;

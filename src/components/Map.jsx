@@ -7,8 +7,18 @@ import React, {
 } from 'react';
 import { GoogleMap, useJsApiLoader } from '@react-google-maps/api';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchCenter } from '../slices/googleSlice';
+import { moveCenter } from '../slices/googleSlice';
 const { GOOGLE_API_KEY } = require('../../server/envVars');
+
+async function getCenter() {
+  const res = await fetch('http://localhost:3000/google/');
+  const data = await res.json();
+  return data;
+}
+
+async function filterRestaurants() {
+  return null;
+}
 
 export default function Map() {
   const dispatch = useDispatch();
@@ -20,14 +30,12 @@ export default function Map() {
   });
 
   useEffect(async () => {
-    const res = await fetch('http://localhost:3000/google/');
-    const data = res.json();
-
-    dispatch(moveCenter(data));
+    const center = await getCenter();
+    mapRef.current?.panTo(center);
+    dispatch(moveCenter(center));
   }, []);
 
   const center = useSelector((state) => state.google.center);
-  console.log(center);
 
   const defaultZoom = 14;
   const mapRef = useRef();
@@ -43,6 +51,7 @@ export default function Map() {
   const onLoad = useCallback((map) => {
     return (mapRef.current = map);
   }, []);
+  // const restaurants = useMemo(() => filterRestaurants, [state.google.center]);
 
   return isLoaded ? (
     <div id='map'>
@@ -52,7 +61,15 @@ export default function Map() {
         options={options}
         onLoad={onLoad}
         mapContainerClassName='map_container'
-      ></GoogleMap>
+      >
+        {/* {restaurants &&
+          restaurants.map((rest) => (
+            <Marker
+              key={rest.id}
+              position={rest.pos}
+            />
+          ))} */}
+      </GoogleMap>
     </div>
   ) : (
     <>Map Loading...</>
