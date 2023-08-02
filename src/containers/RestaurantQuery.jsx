@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { updateQuery } from '../slices/querySlice';
 import { updateRest } from '../slices/restaurantsSlice';
+import { moveCenter } from '../slices/googleSlice';
 //import wobbe from '../frontend/assets/logo.png';
 
 const RestaurantQuery = () => {
@@ -21,15 +22,22 @@ const RestaurantQuery = () => {
     try {
       const backendUrl = 'http://localhost:3000/';
       const jsonData = await fetch(backendUrl, {
-        method: 'GET',
+        method: 'POST',
         headers: {
           'Content-Type': 'Application/JSON',
+          Accept: 'application/json',
         },
-        body: JSON.stringify(location),
+        body: JSON.stringify({ location }),
       });
       const restaurantData = await jsonData.json();
       console.log(restaurantData);
-      dispatch(updateRest(restaurantData));
+      dispatch(updateRest(restaurantData.businesses));
+
+      const newCenter = {
+        lat: restaurantData.region.center.latitude,
+        lng: restaurantData.region.center.longitude,
+      };
+      dispatch(moveCenter(newCenter));
     } catch (err) {
       console.log(`There was an error fetching restaurant data: ${err}`);
     }

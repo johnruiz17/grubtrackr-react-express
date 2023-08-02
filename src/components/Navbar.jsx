@@ -5,7 +5,7 @@ const Navbar = () => {
   return (
     <div className='navbar'>
       <nav>
-        <p> (rec(commend), res(taurants), next.next)</p>
+        <p2> (rec(commend), res(taurants), next.next)</p2>
       </nav>
     </div>
   );
