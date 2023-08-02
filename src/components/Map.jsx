@@ -4,23 +4,20 @@ import React, {
   useEffect,
   useMemo,
   useRef,
+  useState,
 } from 'react';
-import { GoogleMap, useJsApiLoader } from '@react-google-maps/api';
+import {
+  GoogleMap,
+  useJsApiLoader,
+  Marker,
+  InfoWindow,
+} from '@react-google-maps/api';
 import { useDispatch, useSelector } from 'react-redux';
 import { moveCenter } from '../slices/googleSlice';
 const { GOOGLE_API_KEY } = require('../../server/envVars');
 
-async function getCenter() {
-  const res = await fetch('http://localhost:3000/google/');
-  const data = await res.json();
-  return data;
-}
-
-async function filterRestaurants() {
-  return null;
-}
-
 export default function Map() {
+  const [activeMarker, setActiveMarker] = useState(null);
   const dispatch = useDispatch();
 
   const { isLoaded } = useJsApiLoader({
@@ -29,32 +26,49 @@ export default function Map() {
     // do we need any other options here, such as additional libraries?
   });
 
-  useEffect(async () => {
-    const center = await getCenter();
-    mapRef.current?.panTo(center);
-    dispatch(moveCenter(center));
-  }, []);
-
-  const center = useSelector((state) => state.google.center);
-
   const defaultZoom = 14;
   const mapRef = useRef();
   const defaultCenter = useMemo(() => center, []);
   const options = useMemo(
     () => ({
       // what else might we need here?
-      clickableIcons: false,
       mapId: 'dd51250f4e314a82',
     }),
     []
   );
+
+  function handleActiveMarker(id) {
+    if (id === activeMarker) {
+      return;
+    }
+    setActiveMarker(id);
+  }
+
   const onLoad = useCallback((map) => {
     return (mapRef.current = map);
   }, []);
   // const restaurants = useMemo(() => filterRestaurants, [state.google.center]);
+  const center = useSelector((state) => {
+    return mapRef.current?.panTo(state.google.center);
+  });
+
+  const restaurants = useSelector((state) => state.restaurants.restList);
+
+  useEffect(() => {
+    async function setCenter() {
+      const res = await fetch('http://localhost:3000/google/');
+      const center = await res.json();
+
+      mapRef.current?.panTo(center);
+      dispatch(moveCenter(center));
+      return center;
+    }
+
+    setCenter();
+  }, []);
 
   return isLoaded ? (
-    <div id='map'>
+    <div id='mapiframe'>
       <GoogleMap
         zoom={defaultZoom}
         center={defaultCenter}
@@ -62,13 +76,27 @@ export default function Map() {
         onLoad={onLoad}
         mapContainerClassName='map_container'
       >
-        {/* {restaurants &&
-          restaurants.map((rest) => (
-            <Marker
-              key={rest.id}
-              position={rest.pos}
-            />
-          ))} */}
+        {restaurants && (
+          <>
+            {restaurants.map((rest) => {
+              console.log(rest);
+              return (
+                <Marker
+                  key={rest._id}
+                  position={rest.loc}
+                  title={rest.name}
+                  onClick={() => handleActiveMarker(rest._id)}
+                >
+                  {activeMarker === rest._id ? (
+                    <InfoWindow onCloseClick={() => setActiveMarker(null)}>
+                      <div>{rest.name}</div>
+                    </InfoWindow>
+                  ) : null}
+                </Marker>
+              );
+            })}
+          </>
+        )}
       </GoogleMap>
     </div>
   ) : (

@@ -42,11 +42,14 @@ const RestaurantQuery = () => {
       <script
         async
         src='//embedr.flickr.com/assets/client-code.js'
-        charset='utf-8'
+        charSet='utf-8'
       ></script>
       <form className='queryFormContainer'>
-        <label id='nameLabel' htmlFor='restaurant'>
-          Location: 
+        <label
+          id='nameLabel'
+          htmlFor='restaurant'
+        >
+          Location:
           <input
             placeholder='Search by location...'
             name='restaurant'

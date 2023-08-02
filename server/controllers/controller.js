@@ -1,5 +1,6 @@
 // require model & pg-format
 const db = require('../models/models.js');
+const googleApi = require('../models/googleApiModel.js');
 const format = require('pg-format');
 
 const controller = {};
@@ -24,7 +25,21 @@ controller.getRestaurants = async (req, res, next) => {
     }
 
     const data = await db.query(query);
-    res.locals.restaurants = data.rows;
+    const center = googleApi.getCenter();
+    res.locals.restaurants = data.rows.map((rest) => {
+      const offSet = () => {
+        return (Math.random() - 0.5) / 10;
+      };
+      const lat = center.lat + offSet();
+      const lng = center.lng + offSet();
+
+      rest.loc = {
+        lat,
+        lng,
+      };
+
+      return rest;
+    });
     return next();
   } catch (err) {
     return next({
