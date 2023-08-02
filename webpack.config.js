@@ -32,7 +32,7 @@ module.exports = {
     // },
     port: 8080,
     proxy: {
-      '/': 'http://localhost:3000',
+      '/': 'http://localhost:3000/',
     },
     open: true,
     hot: true,
@@ -77,4 +77,7 @@ module.exports = {
       template: './src/index.html',
     }),
   ],
+  resolve: {
+    extensions: ['.js', '.jsx', '.scss'],
+  },
 };

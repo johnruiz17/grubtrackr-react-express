@@ -11,6 +11,9 @@ const restaurantRouter = require('./routes/restaurantRoutes.js');
 // import restaurantRoutes router file
 const reviewRouter = require('./routes/reviewRoutes.js')
 
+// import googleRoutes router fil
+const googleRouter = require('./routes/googleRoutes.js');
+
 // enable cors + parse json
 app.use(cors());
 app.use(express.json());
@@ -21,6 +24,8 @@ app.use('/restaurant', reviewRouter);
 // route handler that will load the page upon initial render
 app.use('/', restaurantRouter);
 
+// googleRouter route handler for '/google' url
+app.use('/google', googleRouter);
 
 // unknown route handler
 app.use((req, res) => res.sendStatus(404));

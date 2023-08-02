@@ -1,5 +1,6 @@
 // require model & pg-format
 const db = require('../models/models.js');
+const googleApi = require('../models/googleApiModel.js');
 const format = require('pg-format');
 const { YELP_API_KEY } = require('../envVars.js');
 

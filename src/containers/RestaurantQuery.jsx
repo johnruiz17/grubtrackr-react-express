@@ -15,27 +15,38 @@ const RestaurantQuery = () => {
 - call updateRest and set to new list of restaurants
 
 */
+  let location = '';
 
-  const fetchRestaurants = async () => {
+  const fetchRestaurants = async (location) => {
     try {
-      const backendUrl = 'http://localhost:3000/restaurants';
+      const backendUrl = 'http://localhost:3000/';
       const jsonData = await fetch(backendUrl, {
-        method: 'POST',
+        method: 'GET',
         headers: {
           'Content-Type': 'Application/JSON',
         },
-        body: JSON.stringify(query),
+        body: JSON.stringify(location),
       });
       const restaurantData = await jsonData.json();
+      console.log(restaurantData);
       dispatch(updateRest(restaurantData));
     } catch (err) {
       console.log(`There was an error fetching restaurant data: ${err}`);
     }
   };
 
-  useEffect(() => {
-    fetchRestaurants();
-  }, [query]);
+  const getInputText = (e) => {
+    location = e.target.value;
+  };
+
+  const searchHandler = (e) => {
+    console.log(location);
+    fetchRestaurants(location);
+  };
+
+  // useEffect(() => {
+  // 	fetchRestaurants();
+  // }, [query]);
 
   return (
     <div>
@@ -44,17 +55,22 @@ const RestaurantQuery = () => {
         src='//embedr.flickr.com/assets/client-code.js'
         charset='utf-8'
       ></script>
-      <form className='queryFormContainer'>
-        <label id='nameLabel' htmlFor='restaurant'>
-          Location: 
+      <div className='queryFormContainer'>
+        <label
+          id='nameLabel'
+          htmlFor='restaurant'
+        >
+          Location:
           <input
+            onChange={getInputText}
             placeholder='Search by location...'
             name='restaurant'
             type='text'
             id='restaurantName'
-            onChange={(e) => dispatch(updateQuery(['name', e.target.value]))}
           />
         </label>
+        <button onClick={searchHandler}>Search</button>
+
         {/* <label className='dropDownLabel' htmlFor='cuisine'>
           Cuisine:
           <select
@@ -160,7 +176,7 @@ const RestaurantQuery = () => {
             <option value='25'>25 km</option>
           </select>
         </label> */}
-      </form>
+      </div>
     </div>
   );
 };
