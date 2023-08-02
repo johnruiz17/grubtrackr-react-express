@@ -1,13 +1,14 @@
 // require model & pg-format
 const db = require('../models/models.js');
 const format = require('pg-format');
+const { YELP_API_KEY } = require('../envVars.js');
 
 // declaring controller object to be exported
 const controller = {};
 
 // declaring headers object with necessary authorization information for the Yelp API call
 const headers = {
-  Authorization: 'Bearer k-IATHt6W-L8KtEONPuMqU10UG7KAxKjWX_imA2cFrDsDjsPtxhwpemzXoQ85TA3FvKzmLj0KRrzW8s_B7IvG2zHLiJOCoSlm-nRqr5bIpxUqFdRS1GHZJweMZ_JZHYx',
+  Authorization: `Bearer ${YELP_API_KEY}`,
   Accept: 'application/json',
 };
 
@@ -19,8 +20,12 @@ controller.fetchYelpRestaurants = async (req, res, next) => {
 
     // if [location] route parameter doesn't exist, declare location variable and assign "San Francisco" to it
     // else destructure the route parameter
-    if (req.params.location) {
-      location = req.params.location;
+    if (req.body) {
+      location = req.body;
+      
+      // testing if req.body exists
+      console.log(req.body);
+      
     } else {
       location = 'San Francisco';
     }
