@@ -12,7 +12,7 @@ const restaurantRouter = express.Router();
 
 
 // fetching SF restaurant data from Yelp API upon initial app load
-restaurantRouter.get('/', controller.fetchYelpRestaurants, (req, res) => {
+restaurantRouter.post('/', controller.fetchYelpRestaurants, (req, res) => {
   res.status(200).json(res.locals.restaurants);
 });
 

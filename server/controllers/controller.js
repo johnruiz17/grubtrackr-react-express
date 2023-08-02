@@ -21,11 +21,13 @@ controller.fetchYelpRestaurants = async (req, res, next) => {
 
     // if [location] route parameter doesn't exist, declare location variable and assign "San Francisco" to it
     // else destructure the route parameter
-    if (req.body) {
-      location = req.body;
+
+    if (req.params.location) {
+      location = req.params.location;
       
       // testing if req.body exists
       console.log(req.body);
+      console.log(req.params);
       
     } else {
       location = 'San Francisco';

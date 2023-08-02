@@ -24,9 +24,9 @@ const RestaurantDisplay = () => {
 
 
   // fetchRestaurants();
-  useEffect(() => {
-    fetchRestaurants();
-  }, [])
+  // useEffect(() => {
+  //   fetchRestaurants();
+  // }, [])
 
   // grab that data --> array of objects
 

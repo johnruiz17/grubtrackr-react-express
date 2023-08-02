@@ -21,11 +21,12 @@ app.use(express.json());
 // route handler that will invoke reviewRouter middleware once a restaurant card is clicked
 app.use('/restaurant', reviewRouter);
 
+// googleRouter route handler for '/google' url
+app.use('/google', googleRouter);
+
 // route handler that will load the page upon initial render
 app.use('/', restaurantRouter);
 
-// googleRouter route handler for '/google' url
-app.use('/google', googleRouter);
 
 // unknown route handler
 app.use((req, res) => res.sendStatus(404));

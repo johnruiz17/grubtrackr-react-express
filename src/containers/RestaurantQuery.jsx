@@ -21,7 +21,7 @@ const RestaurantQuery = () => {
     try {
       const backendUrl = 'http://localhost:3000/';
       const jsonData = await fetch(backendUrl, {
-        method: 'GET',
+        method: 'POST',
         headers: {
           'Content-Type': 'Application/JSON',
         },
