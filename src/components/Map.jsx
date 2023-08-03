@@ -70,7 +70,7 @@ export default function Map() {
         center={defaultCenter}
         options={options}
         onLoad={onLoad}
-        mapContainerClassName='map_container'
+		id='mapiframe'
       >
         {restaurants.length > 0 && (
           <>

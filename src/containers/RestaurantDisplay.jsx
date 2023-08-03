@@ -42,6 +42,7 @@ const RestaurantDisplay = () => {
       <RestaurantCard
         key={index}
         info={el}
+        restaurantId={el.id}
       />
     );
   });
