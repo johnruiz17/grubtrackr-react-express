@@ -13,7 +13,7 @@ import {
   InfoWindow,
 } from '@react-google-maps/api';
 import { useDispatch, useSelector } from 'react-redux';
-import { moveCenter } from '../slices/googleSlice';
+import { moveCenter, setMapRef } from '../slices/googleSlice';
 const { GOOGLE_API_KEY } = require('../../server/envVars');
 
 async function setCenter() {
@@ -51,10 +51,10 @@ export default function Map() {
 
   const onLoad = useCallback(async (map) => {
     const center = await setCenter();
-
-    dispatch(moveCenter(center));
     mapRef.current = map;
-    mapRef.current?.panTo(center);
+
+    dispatch(setMapRef(mapRef));
+    dispatch(moveCenter(center));
   }, []);
   // const restaurants = useMemo(() => filterRestaurants, [state.google.center]);
   const center = useSelector((state) => {

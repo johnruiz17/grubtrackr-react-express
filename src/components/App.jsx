@@ -5,30 +5,34 @@ import ReviewContainer from '../containers/ReviewContainer.jsx';
 import RestaurantQuery from '../containers/RestaurantQuery.jsx';
 import Navbar from './Navbar.jsx';
 import Bodycontainer from '../containers/Bodycontainer.jsx';
+import Map from '../components/Map';
 
 const App = () => {
   return (
-    <Router>
-      <Routes>
-        <Route
-          path='/'
-          element={
-            <>
-              <Navbar />
-              <div className='app'>
-                <RestaurantQuery />
-                <Bodycontainer />
-                <ReviewContainer />
-              </div>
-            </>
-          }
-        />
-        <Route
-          path='/restaurant'
-          element={<div>render restaurant component here</div>}
-        />
-      </Routes>
-    </Router>
+    <>
+      <Navbar />
+      <RestaurantQuery />
+      <div className='app'>
+        <Router>
+          <Routes>
+            <Route
+              path='/'
+              element={
+                <>
+                  <Bodycontainer />
+                  {/* <ReviewContainer /> */}
+                </>
+              }
+            />
+            <Route
+              path='/restaurant'
+              element={<div>render restaurant component here</div>}
+            />
+          </Routes>
+        </Router>
+        <Map />
+      </div>
+    </>
   );
 };
 

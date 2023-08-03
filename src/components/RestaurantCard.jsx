@@ -1,28 +1,37 @@
 import React from 'react';
+import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import { moveCenter } from '../slices/googleSlice';
 
 //deconstruct passed down info prop
 const RestaurantCard = ({ info, restaurantId }) => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
-  const handleRestaurantClick = async (restaurantId) => {
+  const handleRestaurantClick = async (restaurantId, position) => {
     try {
-      const jsonData = await fetch(
-        `http://localhost:3000/restaurant/${restaurantId}`
-      );
-      const reviews = await jsonData.json();
+      dispatch(moveCenter(position));
+      // const jsonData = await fetch(
+      //   `http://localhost:3000/restaurant/${restaurantId}`
+      // );
+      // const reviews = await jsonData.json();
     } catch (err) {
       console.log(`There was an error fetching restaurant reviews: ${err}`);
     }
-    navigate('/restaurant');
+    // navigate('/restaurant');
   };
 
   const { name, image_url, rating, review_count, categories, price } = info;
+  console.log(info);
+  const position = {
+    lat: info.coordinates.latitude,
+    lng: info.coordinates.longitude,
+  };
 
   return (
     <div
       className='resCard'
-      onClick={() => handleRestaurantClick(restaurantId)}
+      onClick={() => handleRestaurantClick(restaurantId, position)}
     >
       <h1>{name}</h1>
       <h2>Cuisine: {categories[0].title}</h2>
