@@ -14,6 +14,7 @@ const RestaurantCard = ({ info, restaurantId }) => {
 			const reviews = await jsonData.json();
 			console.log(reviews, 'reviews');
 			dispatch(updateReview(reviews));
+			navigate('/restaurant');
 		} catch (err) {
 			console.log(`There was an error fetching restaurant reviews: ${err}`);
 		}
