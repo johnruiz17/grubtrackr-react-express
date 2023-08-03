@@ -2,10 +2,17 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 
 //deconstruct passed down info prop
-const RestaurantCard = ({ info }) => {
+const RestaurantCard = ({ info, restaurantId }) => {
 	const navigate = useNavigate();
 
-	const handleRestaurantClick = () => {
+	const handleRestaurantClick = async restaurantId => {
+		try {
+			const jsonData = await fetch(`http://localhost:3000/restaurant/${restaurantId}`);
+			const reviews = await jsonData.json();
+			console.log(reviews, 'reviews');
+		} catch (err) {
+			console.log(`There was an error fetching restaurant reviews: ${err}`);
+		}
 		navigate('/restaurant');
 	};
 
@@ -13,7 +20,7 @@ const RestaurantCard = ({ info }) => {
 	console.log(categories);
 
 	return (
-		<div className='resCard' onClick={handleRestaurantClick}>
+		<div className='resCard' onClick={() => handleRestaurantClick(restaurantId)}>
 			<h1>{name}</h1>
 			<h2>Cuisine: {categories[0].title}</h2>
 			<img id='restaurantPreview' src={image_url}></img>
