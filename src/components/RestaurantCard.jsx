@@ -1,12 +1,13 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { updateReview } from '../slices/reviewSlice';
+import { updateAdditionalData, updateReview } from '../slices/reviewSlice';
 import { useDispatch } from 'react-redux';
 
 //deconstruct passed down info prop
-const RestaurantCard = ({ info, restaurantId }) => {
+const RestaurantCard = ({ info, restaurantId, address, phone, transactions, categories }) => {
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
+	const additionalData = { address: address, phone: phone, transactions: transactions, categories: categories };
 
 	const handleRestaurantClick = async restaurantId => {
 		try {
@@ -14,6 +15,7 @@ const RestaurantCard = ({ info, restaurantId }) => {
 			const reviews = await jsonData.json();
 			console.log(reviews, 'reviews');
 			dispatch(updateReview(reviews));
+			dispatch(updateAdditionalData(additionalData));
 			navigate('/restaurant');
 		} catch (err) {
 			console.log(`There was an error fetching restaurant reviews: ${err}`);
@@ -21,7 +23,7 @@ const RestaurantCard = ({ info, restaurantId }) => {
 		navigate('/restaurant');
 	};
 
-	const { name, image_url, rating, review_count, categories, price } = info;
+	const { name, image_url, rating, review_count, price } = info;
 
 	return (
 		<div className='resCard' onClick={() => handleRestaurantClick(restaurantId)}>
