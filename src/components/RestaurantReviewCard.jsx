@@ -6,6 +6,8 @@ import '../styles/main.scss';
 const RestaurantReviewCard = () => {
 	const navigate = useNavigate();
     const reviews = useSelector((state) => state.review);
+	const name = useSelector((state) => state.name);
+
 	console.log(reviews);
 
 	// const { name, image_url, rating, review_count, categories, price } = info;
@@ -15,6 +17,12 @@ const RestaurantReviewCard = () => {
 			<h1>{name}</h1>
 			<h2>Cuisine: {categories[0].title}</h2>
 			<img id='restaurantPreview' src={image_url}></img>
+			<p>
+				<strong>Address: </strong> {name}
+			</p>
+			<p>
+				<strong>Contact: </strong> {rating}
+			</p>
 			<p>
 				<strong>Rating: </strong> {rating}
 			</p>

@@ -18,6 +18,10 @@ const RestaurantCard = ({ info, restaurantId }) => {
       const reviews = await jsonData.json();
       console.log(reviews, 'reviews');
       dispatch(updateReview(reviews));
+	  // store the name, image_url, rating, review_count, categories, and price in state
+	  // dispatch(updateinfo(name, image_url, rating, review_count, categories, price));
+	  // after the navigate, need to pull the information out of state on the body component 
+	  // const info = useSelector((state) => state.info);
       navigate('/restaurant');
     } catch (err) {
       console.log(`There was an error fetching restaurant reviews: ${err}`);
