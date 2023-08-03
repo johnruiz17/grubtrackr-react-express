@@ -12,23 +12,7 @@ const App = () => {
       <Navbar />
       <RestaurantQuery />
       <div className='app'>
-        <Router>
-          <Routes>
-            <Route
-              path='/'
-              element={
-                <>
-                  <Bodycontainer />
-                </>
-              }
-            />
-            <Route
-              path='/restaurant'
-              element={<div>render restaurant component here</div>}
-            />
-          </Routes>
-        </Router>
-        <Map />
+        <Bodycontainer />
       </div>
     </>
   );

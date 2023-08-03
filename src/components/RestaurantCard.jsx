@@ -3,7 +3,6 @@ import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { moveCenter } from '../slices/googleSlice';
 import { updateReview } from '../slices/reviewSlice';
-import { useDispatch } from 'react-redux';
 
 //deconstruct passed down info prop
 const RestaurantCard = ({ info, restaurantId }) => {
