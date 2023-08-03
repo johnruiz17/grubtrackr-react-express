@@ -13,16 +13,15 @@ import {
   InfoWindow,
 } from '@react-google-maps/api';
 import { useDispatch, useSelector } from 'react-redux';
-import { moveCenter, setMapRef } from '../slices/googleSlice';
+import { moveCenter } from '../slices/googleSlice';
 const { GOOGLE_API_KEY } = require('../../server/envVars');
 
-async function setCenter() {
-  const res = await fetch('http://localhost:3000/google/');
-  return await res.json();
-}
+let mapRef;
 
 export default function Map() {
   const [activeMarker, setActiveMarker] = useState(null);
+  const restaurants = useSelector((state) => state.restaurants.restList);
+
   const dispatch = useDispatch();
 
   const { isLoaded } = useJsApiLoader({
@@ -32,8 +31,7 @@ export default function Map() {
   });
 
   const defaultZoom = 14;
-  const mapRef = useRef();
-  const defaultCenter = useMemo(() => center, []);
+  const defaultCenter = useMemo(() => stateCenter, []);
   const options = useMemo(
     () => ({
       // what else might we need here?
@@ -49,19 +47,36 @@ export default function Map() {
     setActiveMarker(id);
   }
 
+  mapRef = useRef();
   const onLoad = useCallback(async (map) => {
-    const center = await setCenter();
     mapRef.current = map;
-
-    dispatch(setMapRef(mapRef));
-    dispatch(moveCenter(center));
   }, []);
-  // const restaurants = useMemo(() => filterRestaurants, [state.google.center]);
-  const center = useSelector((state) => {
-    return mapRef.current?.panTo(state.google.center);
-  });
+  const stateCenter = useSelector((state) =>
+    mapRef.current?.panTo(state.google.center)
+  );
 
-  const restaurants = useSelector((state) => state.restaurants.restList);
+  const renderMarker = useCallback((rest) => {
+    return (
+      <Marker
+        key={rest.id}
+        position={{
+          lat: rest.coordinates.latitude,
+          lng: rest.coordinates.longitude,
+        }}
+        title={rest.name}
+        onClick={() => handleActiveMarker(rest.id)}
+      >
+        {activeMarker === rest.id ? (
+          <InfoWindow
+            key={'window' + rest.id}
+            onCloseClick={() => setActiveMarker(null)}
+          >
+            <div>{rest.name}</div>
+          </InfoWindow>
+        ) : null}
+      </Marker>
+    );
+  });
 
   return restaurants.length && isLoaded ? (
     <div id='mapiframe'>
@@ -72,29 +87,7 @@ export default function Map() {
         onLoad={onLoad}
         id='mapiframe'
       >
-        {restaurants.length > 0 && (
-          <>
-            {restaurants.map((rest) => {
-              return (
-                <Marker
-                  key={rest.id}
-                  position={{
-                    lat: rest.coordinates.latitude,
-                    lng: rest.coordinates.longitude,
-                  }}
-                  title={rest.name}
-                  onClick={() => handleActiveMarker(rest.id)}
-                >
-                  {activeMarker === rest.id ? (
-                    <InfoWindow onCloseClick={() => setActiveMarker(null)}>
-                      <div>{rest.name}</div>
-                    </InfoWindow>
-                  ) : null}
-                </Marker>
-              );
-            })}
-          </>
-        )}
+        {restaurants.map(renderMarker)}
       </GoogleMap>
     </div>
   ) : (

@@ -8,85 +8,40 @@
 $primary-color: #2fa8cc;
 $secondary-color: #f4f4f4;
 $box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1), 0 6px 6px rgba(0, 0, 0, 0.1);
-$background: linear-gradient(
-  90deg,
-  rgba(255, 180, 214, 1) 0%,
-  rgba(215, 149, 94, 1) 40%,
-  rgba(242, 124, 178, 1) 100%
-);
 
 * {
   box-sizing: border-box;
 }
 
 body {
+  background-color: $primary-color;
   font-family: 'Roboto', sans-serif;
-  background: $background;
+  background: rgb(255, 180, 214);
+  background: linear-gradient(
+    90deg,
+    rgba(255, 180, 214, 1) 0%,
+    rgba(215, 149, 94, 1) 40%,
+    rgba(242, 124, 178, 1) 100%
+  );
   font-family: 'Outfit', sans-serif;
-  padding: 0;
-  margin: 0;
-  width: 100vw;
-  height: 100vh;
+  margin: 0px;
 }
 
 #root {
   width: 100%;
-  height: 100%;
+  height: 100vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center; // horizontal
-  padding: 0 1em;
-}
-
-.navbar {
-  top: 0;
-  display: block;
-  width: 100vw;
-  height: 5em;
-  padding: 0;
-  text-align: center;
-  margin-bottom: 0.5em;
-  z-index: 1;
-
-  p {
-    font-size: 4em;
-    font-weight: bold;
-    margin-top: 0;
-  }
-}
-
-.queryFormContainer {
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-  align-items: center;
-  background-color: #d9afd9;
-  box-shadow: 0.5rem 0.5rem 0.6rem 0.07rem #6a888b;
-  background-image: linear-gradient(0deg, #d9afd9 0%, #97d9e1 100%);
-  min-width: 10rem;
-  max-width: 40rem;
-  min-height: 10rem;
-  max-height: 15rem;
-  margin: 0 auto;
-  border: 1rem groove #d996df;
-  padding: 10px;
-  background-color: rgba(178, 235, 253, 0.58);
+  padding: 1em;
 }
 
 .app {
-  display: flex;
-  flex-direction: row;
-  flex-grow: 1;
   width: 100%;
-  padding: 5em 0 1em 0;
-  overflow: hidden;
-}
-
-#bodycontainer {
-  display: flex;
-  flex-direction: row;
   flex-grow: 1;
+  overflow: hidden;
+  padding-top: 2em;
 }
 
 h1 {
@@ -94,13 +49,33 @@ h1 {
   text-align: center;
 }
 
-#mapiframe {
-  width: 50vw;
-  height: 100%;
-  border: 0;
+.navbar {
+  display: flex;
+  text-align: center;
+  justify-content: center;
+  font-size: 5rem;
+  font-family: 'Pacifico', cursive;
+  background-image: linear-gradient(
+    90deg,
+    #c8bbe5 10%,
+    #fffbd5 50%,
+    #c8bbe5 90%
+  );
+  -webkit-background-clip: text;
+  -moz-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  // color: #fffbd5;
+  position: sticky;
   top: 0;
-  margin-bottom: 2em;
-  border-radius: 10px;
+  width: 100vw;
+  padding: 0;
+}
+
+.navbar p {
+  font-size: 4em;
+  font-weight: bold;
+  margin-top: 0;
 }
 
 /* RES DISPLAY + CARD STYLING */
@@ -110,14 +85,9 @@ h1 {
   justify-content: space-between;
   align-items: center;
   margin: 0 auto;
-  padding: 0.5em;
+  width: 75%;
   overflow-y: scroll;
-  -ms-overflow-style: none;
-  scrollbar-width: none;
-}
-
-.resDisplay::-webkit-scrollbar {
-  display: none;
+  padding-right: 1.5em;
 }
 
 .resCard {
@@ -127,7 +97,7 @@ h1 {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  border-radius: 5px;
+  border-radius: 10px;
   margin-bottom: 2em;
   background: rgb(113, 223, 243);
   background: linear-gradient(
@@ -136,7 +106,8 @@ h1 {
     rgba(120, 187, 206, 1) 50%,
     rgba(124, 184, 242, 1) 100%
   );
-  box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+  box-shadow: rgba(0, 0, 0, 0.16) 8px 7px 3px 0px,
+    rgba(0, 0, 0, 0.23) 0px 3px 6px;
   padding: 1em;
 
   h1 {
@@ -164,16 +135,56 @@ h1 {
   text-shadow: 0.1rem 0.1rem 0.1rem rgba(138, 100, 141, 0.6);
 }
 
-#restaurantName {
-  font-family: 'Merienda';
-  background-color: blanchedalmond;
-  min-height: 2rem;
-  max-height: 2.5rem;
-  box-shadow: 0.15rem 0.15rem 0.4rem 0.04rem rgba(87, 53, 0, 0.6);
-  border-radius: 0.25rem;
-  border-width: 0.1;
-  border-color: gray;
-  width: 100%;
+.queryFormContainer {
+  width: 90%;
+  max-width: 600px;
+  margin: auto;
+  height: 50px;
+  background-color: #b880b8;
+  background-image: linear-gradient(0deg, #b880b8 0%, #89c9d1 100%);
+  background-color: rgba(178, 235, 253, 0.58);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-radius: 8px;
+}
+
+.queryFormContainer input {
+  flex: 1;
+  height: 100%;
+  border: 0;
+  outline: 0;
+  background: transparent;
+  color: #fff;
+  font-family: 'Ubuntu', sans-serif;
+  font-size: 18px;
+  padding: 0 30px;
+}
+
+.queryFormContainer .search-button {
+  padding: 0 40px;
+  height: 100%;
+  background: #f17929;
+  color: #fff;
+  font-size: 18px;
+  font-family: 'Ubuntu', sans-serif;
+  border: 0;
+  outline: 0;
+  border-top-right-radius: 8px;
+  border-bottom-right-radius: 8px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}
+
+.search-button:hover {
+  background-color: #f34f1d;
+}
+
+::placeholder {
+  color: #fff;
+  font-size: 18px;
+  font-family: 'Ubuntu', sans-serif;
 }
 
 .dropDownLabel {
@@ -199,19 +210,6 @@ h1 {
   text-shadow: 0.1rem 0.1rem 0.1rem rgba(138, 100, 141, 0.6);
 }
 
-#restaurantName {
-  font-family: 'Merienda';
-  background-color: blanchedalmond;
-  min-height: 2rem;
-  max-height: 2.5rem;
-  width: 100%;
-  box-shadow: 0.15rem 0.15rem 0.4rem 0.04rem rgba(87, 53, 0, 0.6);
-  border-radius: 0.25rem;
-  border-width: 0.1rem;
-  border-color: gray;
-  flex-shrink: 1;
-}
-
 .dropDownLabel {
   font-family: 'Belanosima';
   text-shadow: 0.1rem 0.1rem 0.1rem rgba(138, 100, 141, 0.6);
@@ -233,7 +231,6 @@ h1 {
 /* Review Container Styling*/
 
 .reviewContainer {
-  display: none;
   border: dashed 2px rgba(30, 101, 123, 0.973);
   padding: 10px;
   font-weight: bold;
@@ -247,6 +244,30 @@ h1 {
 // .serviceStars:hover ,
 .serviceStars.clicked {
   color: rgb(255, 200, 0);
+}
+
+.map_container {
+  float: right;
+  height: 800px;
+  width: 800px;
+}
+
+#bodycontainer {
+  display: flex;
+  flex-direction: row;
+  padding: 0.5em;
+  height: 100%;
+}
+
+#mapiframe {
+  width: 50vw;
+  height: 100%;
+  border: 0;
+  margin: 0 0.5em 2em;
+  position: sticky;
+  top: 0;
+  overflow: hidden;
+  border-radius: 10px;
 }
 
 #restaurantPreview {

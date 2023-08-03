@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { updateQuery } from '../slices/querySlice';
 import {
   updateRest,
   setLocation,
@@ -40,6 +39,9 @@ const RestaurantQuery = () => {
       dispatch(resetOffset());
       dispatch(updateRest(restaurantData.businesses));
 
+      const ele = document.querySelector('.resDisplay');
+      if (ele) ele.scrollTop = 0;
+
       const newCenter = {
         lat: restaurantData.region.center.latitude,
         lng: restaurantData.region.center.longitude,
@@ -70,7 +72,6 @@ const RestaurantQuery = () => {
         id='nameLabel'
         htmlFor='restaurant'
       >
-        Location:
         <input
           onChange={getInputText}
           placeholder='Search by location...'
@@ -82,7 +83,12 @@ const RestaurantQuery = () => {
           }}
         />
       </label>
-      <button onClick={searchHandler}>Search</button>
+      <button
+        onClick={searchHandler}
+        className='search-button'
+      >
+        Search
+      </button>
 
       {/* <label className='dropDownLabel' htmlFor='cuisine'>
           Cuisine:
