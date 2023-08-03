@@ -16,17 +16,11 @@ const RestaurantDisplay = () => {
 			const backendUrl = 'http://localhost:3000/restaurants';
 			const jsonData = await fetch(backendUrl);
 			const restaurantData = await jsonData.json();
-			console.log(restaurantData);
 			dispatch(updateRest(restaurantData.businesses));
 		} catch (err) {
 			console.log(`There was an error fetching restaurant data: ${err}`);
 		}
 	};
-
-	// fetchRestaurants();
-	// useEffect(() => {
-	//   fetchRestaurants();
-	// }, []);
 
 	// grab that data --> array of objects
 
@@ -35,7 +29,6 @@ const RestaurantDisplay = () => {
 	// restaurant
 	//create an array to store all of the different RestaurantCards
 	const displayArray = [];
-	console.log(restaurant);
 
 	//iterate through the array of Restaurant objects
 	restaurant.forEach((el, index) => {
