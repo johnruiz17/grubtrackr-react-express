@@ -55,6 +55,29 @@ export default function Map() {
     mapRef.current?.panTo(state.google.center)
   );
 
+  const renderMarker = useCallback((rest) => {
+    return (
+      <Marker
+        key={rest.id}
+        position={{
+          lat: rest.coordinates.latitude,
+          lng: rest.coordinates.longitude,
+        }}
+        title={rest.name}
+        onClick={() => handleActiveMarker(rest.id)}
+      >
+        {activeMarker === rest.id ? (
+          <InfoWindow
+            key={'window' + rest.id}
+            onCloseClick={() => setActiveMarker(null)}
+          >
+            <div>{rest.name}</div>
+          </InfoWindow>
+        ) : null}
+      </Marker>
+    );
+  });
+
   return restaurants.length && isLoaded ? (
     <div id='mapiframe'>
       <GoogleMap
@@ -64,28 +87,7 @@ export default function Map() {
         onLoad={onLoad}
         id='mapiframe'
       >
-        {restaurants.map((rest) => {
-          return (
-            <Marker
-              key={rest.id}
-              position={{
-                lat: rest.coordinates.latitude,
-                lng: rest.coordinates.longitude,
-              }}
-              title={rest.name}
-              onClick={() => handleActiveMarker(rest.id)}
-            >
-              {activeMarker === rest.id ? (
-                <InfoWindow
-                  key={'window' + rest.id}
-                  onCloseClick={() => setActiveMarker(null)}
-                >
-                  <div>{rest.name}</div>
-                </InfoWindow>
-              ) : null}
-            </Marker>
-          );
-        })}
+        {restaurants.map(renderMarker)}
       </GoogleMap>
     </div>
   ) : (

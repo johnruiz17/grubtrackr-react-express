@@ -13,9 +13,12 @@ const RestaurantDisplay = () => {
   // do a get request to all of our restaurants
 
   const handleScroll = (e) => {
-    const height = e.currentTarget.scrollHeight;
+    const scrollHeight = e.currentTarget.scrollHeight;
+    const offsetHeight = e.currentTarget.offsetHeight;
     const scrollTop = e.currentTarget.scrollTop;
-    if (scrollTop >= height - 2000) {
+    console.log(scrollTop);
+    console.log(scrollHeight);
+    if (status === 'succeeded' && scrollTop >= scrollHeight - 2000) {
       dispatch(getNext());
     }
   };
