@@ -223,12 +223,6 @@ h1 {
   margin-bottom: 0.5em;
 }
 
-.map_container {
-  float: right;
-  height: 800px;
-  width: 800px;
-}
-
 .navbar {
   position: sticky;
   top: 0;
@@ -244,11 +238,13 @@ h1 {
   padding: 0;
   text-align: center;
   margin-bottom: 0.5em;
+  z-index: 1;
 }
 
 .navbar p {
   font-size: 4em;
   font-weight: bold;
+  margin-top: 0;
 }
 
 #bodycontainer {
@@ -259,10 +255,18 @@ h1 {
 
 #mapiframe {
   width: 50vw;
-  height: 50vw;
+  height: 98vh;
   border: 0;
   padding: 0.5em;
   padding-top: 5em;
   position: sticky;
   top: 0;
+  overflow: hidden;
+  margin-bottom: 2em;
+}
+
+#restaurantPreview {
+  height: 10em;
+  width: 15em;
+  align-self: center;
 }
