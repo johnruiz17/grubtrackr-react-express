@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { updateQuery } from '../slices/querySlice';
-import { updateRest } from '../slices/restaurantsSlice';
+import { updateRest, setLocation, resetOffset, setStatus } from '../slices/restaurantsSlice';
 import { moveCenter } from '../slices/googleSlice';
 //import wobbe from '../frontend/assets/logo.png';
 
@@ -30,8 +29,13 @@ const RestaurantQuery = () => {
 				body: JSON.stringify({ location })
 			});
 			const restaurantData = await jsonData.json();
-			console.log(restaurantData, 'data');
+
+			dispatch(setLocation(location));
+			dispatch(resetOffset());
 			dispatch(updateRest(restaurantData.businesses));
+
+			const ele = document.querySelector('.resDisplay');
+			if (ele) ele.scrollTop = 0;
 
 			const newCenter = {
 				lat: restaurantData.region.center.latitude,
@@ -47,8 +51,10 @@ const RestaurantQuery = () => {
 		location = e.target.value;
 	};
 
-	const searchHandler = e => {
-		fetchRestaurants(location);
+	const searchHandler = async () => {
+		dispatch(setStatus('loading'));
+		await fetchRestaurants(location);
+		dispatch(setStatus('succeeded'));
 	};
 
 	// useEffect(() => {
@@ -56,15 +62,24 @@ const RestaurantQuery = () => {
 	// }, [query]);
 
 	return (
-		<div>
-			<div className='queryFormContainer'>
-				<label id='nameLabel' htmlFor='restaurant'>
-					Location:
-					<input onChange={getInputText} placeholder='Search by location...' name='restaurant' type='text' id='restaurantName' />
-				</label>
-				<button onClick={searchHandler}>Search</button>
+		<div className='queryFormContainer'>
+			<label id='nameLabel' htmlFor='restaurant'>
+				<input
+					onChange={getInputText}
+					placeholder='Search by location...'
+					name='restaurant'
+					type='text'
+					id='restaurantName'
+					onKeyDown={e => {
+						if (e.key === 'Enter') searchHandler();
+					}}
+				/>
+			</label>
+			<button onClick={searchHandler} className='search-button'>
+				Search
+			</button>
 
-				{/* <label className='dropDownLabel' htmlFor='cuisine'>
+			{/* <label className='dropDownLabel' htmlFor='cuisine'>
           Cuisine:
           <select
             className='dropDown'
@@ -169,7 +184,6 @@ const RestaurantQuery = () => {
             <option value='25'>25 km</option>
           </select>
         </label> */}
-			</div>
 		</div>
 	);
 };

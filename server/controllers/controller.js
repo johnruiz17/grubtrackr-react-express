@@ -3,12 +3,15 @@ const db = require('../models/models.js');
 const googleApi = require('../models/googleApiModel.js');
 const format = require('pg-format');
 const { YELP_API_KEY } = require('../envVars.js');
+const yelpApi = require('../models/yelpApiModel.js');
 
 // declaring controller object to be exported
 const controller = {};
 
 // declaring headers object with necessary authorization information for the Yelp API call
 const headers = {
+  Authorization: `Bearer ${YELP_API_KEY}`,
+  Accept: 'application/json',
   Authorization: `Bearer ${YELP_API_KEY}`,
   Accept: 'application/json',
 };
@@ -29,7 +32,7 @@ controller.fetchYelpRestaurants = async (req, res, next) => {
 
     // setting the url with the search parameter inside of it
     // LIMITED TO TEN RESULTS FOR TESTING
-    const url = `https://api.yelp.com/v3/businesses/search?location=${location}&sort_by=best_match&limit=20`;
+    const url = `https://api.yelp.com/v3/businesses/search?location=${location}&sort_by=best_match&limit=50`;
 
     const data = await fetch(url, { headers });
     const restaurantData = await data.json();
@@ -38,7 +41,7 @@ controller.fetchYelpRestaurants = async (req, res, next) => {
     return next();
   } catch (err) {
     return next({
-      log: `Express caught error in controller.fetchYelpRestaurants: ${err}`,
+      log: `Express caught error in controller.fetchYelpRestaurants.`,
       message: {
         err: 'An error occurred with fetching restaurant information from Yelp.',
       },
@@ -50,7 +53,6 @@ controller.showReviews = async (req, res, next) => {
   try {
     // destructuring the id from req.params
     const { id } = req.params;
-
     // setting the url with the search parameter inside of it
     // LIMITED TO TEN RESULTS FOR TESTING
     const url = `https://api.yelp.com/v3/businesses/${id}/reviews?limit=10&sort_by=yelp_sort`;
@@ -65,6 +67,25 @@ controller.showReviews = async (req, res, next) => {
       log: `Express caught error in controller.showReviews: ${err}`,
       message: {
         err: 'An error occurred with fetching review information from Yelp.',
+      },
+    });
+  }
+};
+
+controller.nextPage = async (req, res, next) => {
+  console.log(req);
+  try {
+    const { location, offset } = req.params;
+
+    const restaurants = await yelpApi.getPage(location, offset);
+    res.locals.restaurants = restaurants;
+
+    return next();
+  } catch (err) {
+    return next({
+      log: `Error in controller.nextPage with fetching the next offset of data: ${err}`,
+      message: {
+        err: 'An error occured in controller.nextPage.',
       },
     });
   }

@@ -1,7 +1,8 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
-import { updateAdditionalData, updateReview } from '../slices/reviewSlice';
 import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import { moveCenter } from '../slices/googleSlice';
+import { updateAdditionalData, updateReview } from '../slices/reviewSlice';
 
 //deconstruct passed down info prop
 const RestaurantCard = ({ info, restaurantId, address, phone, transactions, categories }) => {
@@ -11,6 +12,7 @@ const RestaurantCard = ({ info, restaurantId, address, phone, transactions, cate
 
 	const handleRestaurantClick = async restaurantId => {
 		try {
+			dispatch(moveCenter(position));
 			const jsonData = await fetch(`http://localhost:3000/restaurant/${restaurantId}`);
 			const reviews = await jsonData.json();
 			console.log(reviews, 'reviews');
@@ -24,9 +26,13 @@ const RestaurantCard = ({ info, restaurantId, address, phone, transactions, cate
 	};
 
 	const { name, image_url, rating, review_count, price } = info;
+	const position = {
+		lat: info.coordinates.latitude,
+		lng: info.coordinates.longitude
+	};
 
 	return (
-		<div className='resCard' onClick={() => handleRestaurantClick(restaurantId)}>
+		<div className='resCard' onClick={() => handleRestaurantClick(restaurantId, position)}>
 			<h1>{name}</h1>
 			<h2>Cuisine: {categories[0].title}</h2>
 			<img id='restaurantPreview' src={image_url}></img>

@@ -1,24 +1,25 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { updateRest } from '../slices/restaurantsSlice';
 import RestaurantCard from '../components/RestaurantCard.jsx';
+import { getNext } from '../slices/restaurantsSlice.js';
 //import that slice of state here
 
 const RestaurantDisplay = () => {
 	//get the updated array of Restaurants from state
 	const restaurant = useSelector(state => state.restaurants.restList);
+	const status = useSelector(state => state.restaurants.status);
 	// here can we initialize restaurant to get request to all restaurants?
 	const dispatch = useDispatch();
 	// do a get request to all of our restaurants
 
-	const fetchRestaurants = async () => {
-		try {
-			const backendUrl = 'http://localhost:3000/restaurants';
-			const jsonData = await fetch(backendUrl);
-			const restaurantData = await jsonData.json();
-			dispatch(updateRest(restaurantData.businesses));
-		} catch (err) {
-			console.log(`There was an error fetching restaurant data: ${err}`);
+	const handleScroll = e => {
+		const scrollHeight = e.currentTarget.scrollHeight;
+		const offsetHeight = e.currentTarget.offsetHeight;
+		const scrollTop = e.currentTarget.scrollTop;
+		console.log(scrollTop);
+		console.log(scrollHeight);
+		if (status === 'succeeded' && scrollTop >= scrollHeight - 2000) {
+			dispatch(getNext());
 		}
 	};
 
@@ -27,17 +28,17 @@ const RestaurantDisplay = () => {
 	// invoke updateRest to update our restaurant state
 
 	// restaurant
-	//create an array to store all of the different RestaurantCards
-	const displayArray = [];
-
-	//iterate through the array of Restaurant objects
-	restaurant.forEach((el, index) => {
-		displayArray.push(<RestaurantCard key={index} info={el} restaurantId={el.id} address={el.location.display_address} phone={el.display_phone} transactions={el.transactions} categories={el.categories} />);
-	});
-	//create an instance of Restaurant Card for each object
-	//pass the object down as a prop
-
-	return <div className='resDisplay'>{displayArray}</div>;
+	return (
+		<div className='resDisplay' onScroll={handleScroll}>
+			{restaurant.length ? (
+				restaurant.map((el, index) => {
+					return <RestaurantCard key={el.id + index} info={el} restaurantId={el.id} address={el.location.display_address} phone={el.display_phone} transactions={el.transactions} categories={el.categories} />;
+				})
+			) : (
+				<></>
+			)}
+		</div>
+	);
 };
 
 export default RestaurantDisplay;

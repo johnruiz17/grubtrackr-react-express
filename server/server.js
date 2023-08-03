@@ -1,6 +1,7 @@
 const express = require('express');
 const fetch = require('node-fetch');
 const cors = require('cors');
+const path = require('path');
 
 const app = express();
 const PORT = 3000;
@@ -13,6 +14,9 @@ const reviewRouter = require('./routes/reviewRoutes.js');
 
 // import googleRoutes router fil
 const googleRouter = require('./routes/googleRoutes.js');
+
+// serve static files
+app.use('/public', express.static(path.resolve(__dirname, '../public')));
 
 // enable cors + parse json
 app.use(cors());
