@@ -63,7 +63,7 @@ export default function Map() {
 
   const restaurants = useSelector((state) => state.restaurants.restList);
 
-  return isLoaded ? (
+  return restaurants.length && isLoaded ? (
     <div id='mapiframe'>
       <GoogleMap
         zoom={14}
@@ -98,6 +98,6 @@ export default function Map() {
       </GoogleMap>
     </div>
   ) : (
-    <>Map Loading...</>
+    <></>
   );
 }

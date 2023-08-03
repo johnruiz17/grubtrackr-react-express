@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { updateRest, getNext } from '../slices/restaurantsSlice';
 import RestaurantCard from '../components/RestaurantCard.jsx';
 //import that slice of state here
 
@@ -29,12 +28,10 @@ const RestaurantDisplay = () => {
   //create an instance of Restaurant Card for each object
   //pass the object down as a prop
 
-  return (
-    <div className='resDisplay'>
-      <div className='status'>{status}</div>
-      <button onClick={() => dispatch(getNext())}>Next Page</button>
-      {displayArray}
-    </div>
+  return status === 'loading' ? (
+    <div className='resDisplay'>Loading...</div>
+  ) : (
+    <div className='resDisplay'>{displayArray}</div>
   );
 };
 

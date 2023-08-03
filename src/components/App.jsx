@@ -20,7 +20,6 @@ const App = () => {
               element={
                 <>
                   <Bodycontainer />
-                  {/* <ReviewContainer /> */}
                 </>
               }
             />
