@@ -252,6 +252,7 @@ h1 {
 .navbar p {
   font-size: 4em;
   font-weight: bold;
+  margin-top: 0;
 }
 
 #bodycontainer {
@@ -262,10 +263,18 @@ h1 {
 
 #mapiframe {
   width: 50vw;
-  height: 50vw;
+  height: 98vh;
   border: 0;
   padding: 0.5em;
   padding-top: 5em;
   position: sticky;
   top: 0;
+  overflow: hidden;
+  margin-bottom: 2em;
+}
+
+#restaurantPreview {
+  height: 10em;
+  width: 15em;
+  align-self: center;
 }
