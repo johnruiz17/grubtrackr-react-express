@@ -50,15 +50,15 @@ export default function Map() {
   }
 
   const onLoad = useCallback(async (map) => {
-    const center = await setCenter();
+    // const center = await setCenter();
     mapRef.current = map;
 
     dispatch(setMapRef(mapRef));
-    dispatch(moveCenter(center));
   }, []);
+
   // const restaurants = useMemo(() => filterRestaurants, [state.google.center]);
   const center = useSelector((state) => {
-    return mapRef.current?.panTo(state.google.center);
+    return state.google.mapRef.current?.panTo(state.google.center);
   });
 
   const restaurants = useSelector((state) => state.restaurants.restList);
