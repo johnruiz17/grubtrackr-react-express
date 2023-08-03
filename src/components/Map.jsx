@@ -70,12 +70,11 @@ export default function Map() {
         center={defaultCenter}
         options={options}
         onLoad={onLoad}
-		id='mapiframe'
+        id='mapiframe'
       >
         {restaurants.length > 0 && (
           <>
             {restaurants.map((rest) => {
-              console.log(rest);
               return (
                 <Marker
                   key={rest.id}
