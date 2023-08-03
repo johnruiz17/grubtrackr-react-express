@@ -12,9 +12,7 @@ const reviewRouter = express.Router();
 
 // fetching review data for individual restaurants using the id request parameter
 reviewRouter.get('/:id', controller.showReviews, (req, res) => {
-  res.status(200).json(res.locals.reviews);
+	res.status(200).json(res.locals.reviews);
 });
-
-
 
 module.exports = reviewRouter;
