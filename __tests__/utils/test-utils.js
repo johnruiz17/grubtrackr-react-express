@@ -1,12 +1,14 @@
+// This is a wrapper function to provide a store with some functionality for testing
+// This was modified from the documentation found at: https://redux.js.org/usage/writing-tests
 import React from 'react';
 import { configureStore } from '@reduxjs/toolkit';
 import { render } from '@testing-library/react';
 import { Provider } from 'react-redux';
 
-import queryReducer from '../../slices/querySlice';
-import restaurantsReducer from '../../slices/restaurantsSlice';
-import reviewSlice from '../../slices/reviewSlice';
-import googleSlice from '../../slices/googleSlice';
+import querySlice from '../../src/slices/querySlice';
+import restaurantsSlice from '../../src/slices/restaurantsSlice';
+import reviewSlice from '../../src/slices/reviewSlice';
+import googleSlice from '../../src/slices/googleSlice';
 
 export function renderWithProviders(
   ui,
@@ -14,8 +16,8 @@ export function renderWithProviders(
     preloadedState = {},
     store = configureStore({
       reducer: {
-        restaurants: restaurantsReducer,
-        query: queryReducer,
+        restaurants: restaurantsSlice,
+        query: querySlice,
         review: reviewSlice,
         google: googleSlice,
       },

@@ -1,3 +1,5 @@
+// initial attempt to test the various react elements
+
 import Reach from 'react';
 import { fireEvent, render, screen } from '@testing-library/react';
 
@@ -22,7 +24,7 @@ describe('Unit testing the react components', () => {
       const onClick = jest.fn();
       queryBox.rerender(<RestaurantQuery onClick={onClick} />);
 
-      const button = await screen.getByText('Search');
+      const button = await screen.findByText('Search');
       fireEvent.click(button);
       expect(onClick).toHaveBeenCalledTimes(1);
     });

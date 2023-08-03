@@ -48,7 +48,6 @@ const RestaurantQuery = () => {
   };
 
   const searchHandler = (e) => {
-    console.log(location);
     fetchRestaurants(location);
   };
 
@@ -58,11 +57,6 @@ const RestaurantQuery = () => {
 
   return (
     <div>
-      <script
-        async
-        src='//embedr.flickr.com/assets/client-code.js'
-        charset='utf-8'
-      ></script>
       <div className='queryFormContainer'>
         <label
           id='nameLabel'
