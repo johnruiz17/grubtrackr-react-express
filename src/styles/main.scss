@@ -43,6 +43,10 @@ h1 {
   text-align: center;
 }
 
+// .navbar {
+//   color: #fff;
+// }
+
 /* RES DISPLAY + CARD STYLING */
 .resDisplay {
   display: flex;
@@ -97,37 +101,59 @@ h1 {
   text-shadow: 0.1rem 0.1rem 0.1rem rgba(138, 100, 141, 0.6);
 }
 
-#restaurantName {
-  font-family: 'Merienda';
-  background-color: blanchedalmond;
-  min-height: 2rem;
-  max-height: 2.5rem;
-  box-shadow: 0.15rem 0.15rem 0.4rem 0.04rem rgba(87, 53, 0, 0.6);
-  border-radius: 0.25rem;
-  border-width: 0.1;
-  border-color: gray;
-  width: 100%;
+// TESTING SEARCH BUTTON STYLING
+.queryFormContainer {
+  width: 90%;
+  max-width: 600px;
+  margin: auto;
+  height: 50px;
+  background-color: #b880b8;
+  background-image: linear-gradient(0deg, #b880b8 0%, #89c9d1 100%);
+  background-color: rgba(178, 235, 253, 0.58);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-radius: 8px;
 }
 
-.queryFormContainer {
-  // background-image: url('https://www.flickr.com/photos/198870796@N04/53085172796/in/dateposted-public/');
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
+.queryFormContainer input {
   flex: 1;
-  align-items: center;
-  background-color: #d9afd9;
-  box-shadow: 0.5rem 0.5rem 0.6rem 0.07rem #6a888b;
-  background-image: linear-gradient(0deg, #d9afd9 0%, #97d9e1 100%);
-  min-width: 10rem;
-  max-width: 40rem;
-  min-height: 10rem;
-  max-height: 15rem;
-  margin: 0 auto;
-  border: 1rem groove #d996df;
-  padding: 10px;
-  background-color: rgba(178, 235, 253, 0.58);
+  height: 100%;
+  border: 0;
+  outline: 0;
+  background: transparent;
+  color: #fff;
+  font-family: 'Ubuntu', sans-serif;
+  font-size: 18px;
+  padding: 0 30px;
 }
+
+.queryFormContainer .search-button {
+  padding: 0 40px;
+  height: 100%;
+  background: #f17929;
+  color: #fff;
+  font-size: 18px;
+  font-family: 'Ubuntu', sans-serif;
+  border: 0;
+  outline: 0;
+  border-top-right-radius: 8px;
+  border-bottom-right-radius: 8px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}
+
+.search-button:hover {
+  background-color: #f34f1d;
+}
+
+::placeholder {
+  color: #fff;
+  font-size: 18px;
+  font-family: 'Ubuntu', sans-serif;
+}
+
 
 .dropDownLabel {
   font-family: 'Belanosima';
@@ -152,18 +178,6 @@ h1 {
   text-shadow: 0.1rem 0.1rem 0.1rem rgba(138, 100, 141, 0.6);
 }
 
-#restaurantName {
-  font-family: 'Merienda';
-  background-color: blanchedalmond;
-  min-height: 2rem;
-  max-height: 2.5rem;
-  width: 100%;
-  box-shadow: 0.15rem 0.15rem 0.4rem 0.04rem rgba(87, 53, 0, 0.6);
-  border-radius: 0.25rem;
-  border-width: 0.1rem;
-  border-color: gray;
-  flex-shrink: 1;
-}
 
 .dropDownLabel {
   font-family: 'Belanosima';
@@ -206,23 +220,6 @@ h1 {
   width: 800px;
 }
 
-.navbar {
-  position: sticky;
-  top: 0;
-  background: rgb(255, 180, 214);
-  background: linear-gradient(
-    90deg,
-    rgba(255, 180, 214, 1) 0%,
-    rgba(215, 149, 94, 1) 40%,
-    rgba(242, 124, 178, 1) 100%
-  );
-  width: 100vw;
-  height: 5em;
-  padding: 0;
-  text-align: center;
-  margin-bottom: 0.5em;
-}
-
 .map_container {
   float: right;
   height: 800px;
@@ -230,20 +227,26 @@ h1 {
 }
 
 .navbar {
+  display: flex;
+  text-align: center;
+  justify-content: center;
+  font-size: 5rem;
+  font-family: 'Pacifico', cursive;
+  background-image: linear-gradient(
+    90deg,
+    #c8bbe5 10%,
+    #fffbd5 50%,
+    #c8bbe5 90%,
+  );
+  -webkit-background-clip: text;
+  -moz-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  // color: #fffbd5;
   position: sticky;
   top: 0;
-  background: rgb(255, 180, 214);
-  background: linear-gradient(
-    90deg,
-    rgba(255, 180, 214, 1) 0%,
-    rgba(215, 149, 94, 1) 40%,
-    rgba(242, 124, 178, 1) 100%
-  );
   width: 100vw;
-  height: 5em;
   padding: 0;
-  text-align: center;
-  margin-bottom: 0.5em;
 }
 
 .navbar p {

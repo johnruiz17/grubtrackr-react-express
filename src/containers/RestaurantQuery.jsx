@@ -68,7 +68,6 @@ const RestaurantQuery = () => {
           id='nameLabel'
           htmlFor='restaurant'
         >
-          Location:
           <input
             onChange={getInputText}
             placeholder='Search by location...'
@@ -77,7 +76,7 @@ const RestaurantQuery = () => {
             id='restaurantName'
           />
         </label>
-        <button onClick={searchHandler}>Search</button>
+        <button onClick={searchHandler} className='search-button'>Search</button>
 
         {/* <label className='dropDownLabel' htmlFor='cuisine'>
           Cuisine:
