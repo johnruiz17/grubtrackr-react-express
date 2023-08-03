@@ -9,28 +9,23 @@ const RestaurantCard = ({ info }) => {
 		navigate('/restaurant');
 	};
 
-	const { name, ambience, cuisine, price_tier, plant_based, location_radius, good_for_groups } = info;
+	const { name, image_url, rating, review_count, categories, price } = info;
+	console.log(categories);
 
 	return (
 		<div className='resCard' onClick={handleRestaurantClick}>
 			<h1>{name}</h1>
-			<h2>Cuisine: {cuisine}</h2>
+			<h2>Cuisine: {categories[0].title}</h2>
+			<img id='restaurantPreview' src={image_url}></img>
 			<p>
-				<strong>Price Tier:</strong> {price_tier}
+				<strong>Rating: </strong> {rating}
 			</p>
 			<p>
-				<strong>Ambience:</strong> {ambience}
+				<strong>Number of reviews: </strong> {review_count}
 			</p>
 			<p>
-				<strong>Plant-Based?</strong> {plant_based === '0' ? 'no' : 'yes'}
+				<strong>Price: </strong> {price}
 			</p>
-			<p>
-				<strong>Location Radius:</strong> {location_radius} km
-			</p>
-			<p>
-				<strong>Good for Groups?</strong> {good_for_groups === '0' ? 'no' : 'yes'}
-			</p>
-			{/* <p>Nathan's Mom approves? yes</p> */}
 		</div>
 	);
 };
