@@ -29,12 +29,7 @@ const RestaurantDisplay = () => {
   return status === 'loading' ? (
     <div className='resDisplay'>Loading...</div>
   ) : (
-    <div
-      className='resDisplay'
-      onScroll={(e) => console.log(e)}
-    >
-      {displayArray}
-    </div>
+    <div className='resDisplay'>{displayArray}</div>
   );
 };
 
