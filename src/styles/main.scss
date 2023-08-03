@@ -89,12 +89,12 @@ body {
   padding: 0.5em;
   flex-grow: 1;
   overflow-y: scroll;
-  // -ms-overflow-style: none;
-  // scrollbar-width: none;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
 
 #bodycontainer::-webkit-scrollbar {
-  // display: none;
+  display: none;
 }
 
 h1 {
