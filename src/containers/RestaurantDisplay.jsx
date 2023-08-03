@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import RestaurantCard from '../components/RestaurantCard.jsx';
+import { getNext } from '../slices/restaurantsSlice.js';
 //import that slice of state here
 
 const RestaurantDisplay = () => {
@@ -11,25 +12,33 @@ const RestaurantDisplay = () => {
   const dispatch = useDispatch();
   // do a get request to all of our restaurants
 
-  const displayArray = [];
+  const handleScroll = (e) => {
+    const height = e.currentTarget.scrollHeight;
+    const scrollTop = e.currentTarget.scrollTop;
+    if (scrollTop >= height - 2000) {
+      dispatch(getNext());
+    }
+  };
 
-  //iterate through the array of Restaurant objects
-  restaurant.forEach((el, index) => {
-    displayArray.push(
-      <RestaurantCard
-        key={index}
-        info={el}
-        restaurantId={el.id}
-      />
-    );
-  });
-  //create an instance of Restaurant Card for each object
-  //pass the object down as a prop
-
-  return status === 'loading' ? (
-    <div className='resDisplay'>Loading...</div>
-  ) : (
-    <div className='resDisplay'>{displayArray}</div>
+  return (
+    <div
+      className='resDisplay'
+      onScroll={handleScroll}
+    >
+      {restaurant.length ? (
+        restaurant.map((el, index) => {
+          return (
+            <RestaurantCard
+              key={el.id + index}
+              info={el}
+              restaurantId={el.id}
+            />
+          );
+        })
+      ) : (
+        <></>
+      )}
+    </div>
   );
 };
 
