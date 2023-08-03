@@ -2,27 +2,31 @@ import React from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { moveCenter } from '../slices/googleSlice';
+import { updateReview } from '../slices/reviewSlice';
+import { useDispatch } from 'react-redux';
 
 //deconstruct passed down info prop
 const RestaurantCard = ({ info, restaurantId }) => {
-  const navigate = useNavigate();
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
-  const handleRestaurantClick = async (restaurantId, position) => {
+  const handleRestaurantClick = async (restaurantId) => {
     try {
       dispatch(moveCenter(position));
-      // const jsonData = await fetch(
-      //   `http://localhost:3000/restaurant/${restaurantId}`
-      // );
-      // const reviews = await jsonData.json();
+      const jsonData = await fetch(
+        `http://localhost:3000/restaurant/${restaurantId}`
+      );
+      const reviews = await jsonData.json();
+      console.log(reviews, 'reviews');
+      dispatch(updateReview(reviews));
+      navigate('/restaurant');
     } catch (err) {
       console.log(`There was an error fetching restaurant reviews: ${err}`);
     }
-    // navigate('/restaurant');
+    navigate('/restaurant');
   };
 
   const { name, image_url, rating, review_count, categories, price } = info;
-  console.log(info);
   const position = {
     lat: info.coordinates.latitude,
     lng: info.coordinates.longitude,

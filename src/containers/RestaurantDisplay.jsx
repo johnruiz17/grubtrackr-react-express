@@ -7,8 +7,6 @@ const RestaurantDisplay = () => {
   //get the updated array of Restaurants from state
   const restaurant = useSelector((state) => state.restaurants.restList);
   const status = useSelector((state) => state.restaurants.status);
-  console.log(restaurant);
-
   // here can we initialize restaurant to get request to all restaurants?
   const dispatch = useDispatch();
   // do a get request to all of our restaurants

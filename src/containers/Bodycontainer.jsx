@@ -1,26 +1,25 @@
-import React, { useCallback, useState } from 'react';
+import React, { useState } from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import '../styles/main.scss';
 import Mapcontainer from '../components/Map.jsx';
 import RestaurantDisplay from './RestaurantDisplay.jsx';
-import { getNext } from '../slices/googleSlice';
 
 const Restaurantmapcontainer = () => {
-  const onLoad = useCallback(() => {
-    window.addEventListener(
-      'scroll',
-      (e) => {
-        const ele = e.target;
-        debug(e.currentTarget.scrollTop);
-      },
-      false
-    );
-  });
-
-  // dispatch(getNext());
-
   return (
     <div id='bodycontainer'>
-      <RestaurantDisplay onLoad={onLoad} />
+      <Router>
+        <Routes>
+          <Route
+            path='/'
+            element={<RestaurantDisplay />}
+          />
+          <Route
+            path='/restaurant'
+            element={<div>render restaurant component here</div>}
+          />
+        </Routes>
+      </Router>
+      <Mapcontainer />
     </div>
   );
 };
