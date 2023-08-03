@@ -65,24 +65,24 @@ const RestaurantQuery = () => {
   // }, [query]);
 
   return (
+
     <div className='queryFormContainer'>
-      <label
-        id='nameLabel'
-        htmlFor='restaurant'
-      >
-        Location:
-        <input
-          onChange={getInputText}
-          placeholder='Search by location...'
-          name='restaurant'
-          type='text'
-          id='restaurantName'
-          onKeyDown={(e) => {
-            if (e.key === 'Enter') searchHandler();
-          }}
-        />
-      </label>
-      <button onClick={searchHandler}>Search</button>
+        <label
+          id='nameLabel'
+          htmlFor='restaurant'
+        >
+          <input
+            onChange={getInputText}
+            placeholder='Search by location...'
+            name='restaurant'
+            type='text'
+            id='restaurantName'
+            onKeyDown={(e) => {
+              if (e.key === 'Enter') searchHandler();
+            }}
+          />
+        </label>
+        <button onClick={searchHandler} className='search-button'>Search</button>
 
       {/* <label className='dropDownLabel' htmlFor='cuisine'>
           Cuisine:
