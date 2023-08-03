@@ -30,7 +30,6 @@ const RestaurantQuery = () => {
         body: JSON.stringify({ location }),
       });
       const restaurantData = await jsonData.json();
-      console.log(restaurantData);
       dispatch(updateRest(restaurantData.businesses));
 
       const newCenter = {

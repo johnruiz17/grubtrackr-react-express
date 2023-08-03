@@ -22,11 +22,6 @@ const RestaurantDisplay = () => {
     }
   };
 
-  // fetchRestaurants();
-  // useEffect(() => {
-  //   fetchRestaurants();
-  // }, []);
-
   // grab that data --> array of objects
 
   // invoke updateRest to update our restaurant state
@@ -34,7 +29,6 @@ const RestaurantDisplay = () => {
   // restaurant
   //create an array to store all of the different RestaurantCards
   const displayArray = [];
-  console.log(restaurant);
 
   //iterate through the array of Restaurant objects
   restaurant.forEach((el, index) => {
