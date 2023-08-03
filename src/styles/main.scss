@@ -8,34 +8,85 @@
 $primary-color: #2fa8cc;
 $secondary-color: #f4f4f4;
 $box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1), 0 6px 6px rgba(0, 0, 0, 0.1);
+$background: linear-gradient(
+  90deg,
+  rgba(255, 180, 214, 1) 0%,
+  rgba(215, 149, 94, 1) 40%,
+  rgba(242, 124, 178, 1) 100%
+);
 
 * {
   box-sizing: border-box;
 }
 
 body {
-  background-color: $primary-color;
   font-family: 'Roboto', sans-serif;
-  background: rgb(255, 180, 214);
-  background: linear-gradient(
-    90deg,
-    rgba(255, 180, 214, 1) 0%,
-    rgba(215, 149, 94, 1) 40%,
-    rgba(242, 124, 178, 1) 100%
-  );
+  background: $background;
   font-family: 'Outfit', sans-serif;
+  padding: 0;
+  margin: 0;
+  width: 100vw;
+  height: 100vh;
 }
 
 #root {
   width: 100%;
+  height: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center; // horizontal
+  padding: 0 1em;
 }
 
-#app {
+.navbar {
+  top: 0;
+  display: block;
+  width: 100vw;
+  height: 5em;
+  padding: 0;
+  text-align: center;
+  margin-bottom: 0.5em;
+  z-index: 1;
+
+  p {
+    font-size: 4em;
+    font-weight: bold;
+    margin-top: 0;
+  }
+}
+
+.queryFormContainer {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  align-items: center;
+  background-color: #d9afd9;
+  box-shadow: 0.5rem 0.5rem 0.6rem 0.07rem #6a888b;
+  background-image: linear-gradient(0deg, #d9afd9 0%, #97d9e1 100%);
+  min-width: 10rem;
+  max-width: 40rem;
+  min-height: 10rem;
+  max-height: 15rem;
+  margin: 0 auto;
+  border: 1rem groove #d996df;
+  padding: 10px;
+  background-color: rgba(178, 235, 253, 0.58);
+}
+
+.app {
+  display: flex;
+  flex-direction: row;
+  flex-grow: 1;
   width: 100%;
+  padding: 5em 0 1em 0;
+  overflow: hidden;
+}
+
+#bodycontainer {
+  display: flex;
+  flex-direction: row;
+  flex-grow: 1;
 }
 
 h1 {
@@ -43,9 +94,14 @@ h1 {
   text-align: center;
 }
 
-// .navbar {
-//   color: #fff;
-// }
+#mapiframe {
+  width: 50vw;
+  height: 100%;
+  border: 0;
+  top: 0;
+  margin-bottom: 2em;
+  border-radius: 10px;
+}
 
 /* RES DISPLAY + CARD STYLING */
 .resDisplay {
@@ -54,14 +110,20 @@ h1 {
   justify-content: space-between;
   align-items: center;
   margin: 0 auto;
-  width: 75%;
-  padding-top: 5em;
+  padding: 0.5em;
+  overflow-y: scroll;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.resDisplay::-webkit-scrollbar {
+  display: none;
 }
 
 .resCard {
   text-align: center;
   flex-basis: 45%;
-  height: 25em;
+  min-height: 25em;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -75,6 +137,7 @@ h1 {
     rgba(124, 184, 242, 1) 100%
   );
   box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+  padding: 1em;
 
   h1 {
     text-transform: uppercase;
@@ -154,6 +217,17 @@ h1 {
   font-family: 'Ubuntu', sans-serif;
 }
 
+#restaurantName {
+  font-family: 'Merienda';
+  background-color: blanchedalmond;
+  min-height: 2rem;
+  max-height: 2.5rem;
+  box-shadow: 0.15rem 0.15rem 0.4rem 0.04rem rgba(87, 53, 0, 0.6);
+  border-radius: 0.25rem;
+  border-width: 0.1;
+  border-color: gray;
+  width: 100%;
+}
 
 .dropDownLabel {
   font-family: 'Belanosima';
@@ -200,6 +274,7 @@ h1 {
 /* Review Container Styling*/
 
 .reviewContainer {
+  display: none;
   border: dashed 2px rgba(30, 101, 123, 0.973);
   padding: 10px;
   font-weight: bold;
@@ -213,64 +288,6 @@ h1 {
 // .serviceStars:hover ,
 .serviceStars.clicked {
   color: rgb(255, 200, 0);
-}
-
-.map_container {
-  height: 800px;
-  width: 800px;
-}
-
-.map_container {
-  float: right;
-  height: 800px;
-  width: 800px;
-}
-
-.navbar {
-  display: flex;
-  text-align: center;
-  justify-content: center;
-  font-size: 5rem;
-  font-family: 'Pacifico', cursive;
-  background-image: linear-gradient(
-    90deg,
-    #c8bbe5 10%,
-    #fffbd5 50%,
-    #c8bbe5 90%,
-  );
-  -webkit-background-clip: text;
-  -moz-background-clip: text;
-  background-clip: text;
-  color: transparent;
-  // color: #fffbd5;
-  position: sticky;
-  top: 0;
-  width: 100vw;
-  padding: 0;
-}
-
-.navbar p {
-  font-size: 4em;
-  font-weight: bold;
-  margin-top: 0;
-}
-
-#bodycontainer {
-  display: flex;
-  flex-direction: row;
-  padding: 0.5em;
-}
-
-#mapiframe {
-  width: 50vw;
-  height: 98vh;
-  border: 0;
-  padding: 0.5em;
-  padding-top: 5em;
-  position: sticky;
-  top: 0;
-  overflow: hidden;
-  margin-bottom: 2em;
 }
 
 #restaurantPreview {
