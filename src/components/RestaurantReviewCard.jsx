@@ -5,10 +5,10 @@ import '../styles/main.scss';
 
 const RestaurantReviewCard = () => {
 	const navigate = useNavigate();
-    const reviews = useSelector((state) => state.reviews);
+    const reviews = useSelector((state) => state.review);
+	console.log(reviews);
 
-	const { name, image_url, rating, review_count, categories, price } = info;
-	console.log(categories);
+	// const { name, image_url, rating, review_count, categories, price } = info;
 
 	return (
 		<div className='resCard'>
@@ -32,5 +32,5 @@ const RestaurantReviewCard = () => {
 	);
   };
   
-  export default Navbar;
+  export default RestaurantReviewCard;
   
