@@ -15,7 +15,7 @@ export const getNext = createAsyncThunk(
 
 const initialState = {
   restList: [],
-  offest: 0,
+  offset: 0,
   perPage: 50,
   status: 'idle',
   location: '',

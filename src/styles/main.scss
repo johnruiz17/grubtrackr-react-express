@@ -24,18 +24,24 @@ body {
     rgba(242, 124, 178, 1) 100%
   );
   font-family: 'Outfit', sans-serif;
+  margin: 0px;
 }
 
 #root {
   width: 100%;
+  height: 100vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center; // horizontal
+  padding: 1em;
 }
 
-#app {
+.app {
   width: 100%;
+  flex-grow: 1;
+  overflow: hidden;
+  padding-top: 2em;
 }
 
 h1 {
@@ -53,7 +59,7 @@ h1 {
     90deg,
     #c8bbe5 10%,
     #fffbd5 50%,
-    #c8bbe5 90%,
+    #c8bbe5 90%
   );
   -webkit-background-clip: text;
   -moz-background-clip: text;
@@ -80,17 +86,18 @@ h1 {
   align-items: center;
   margin: 0 auto;
   width: 75%;
-  padding-top: 5em;
+  overflow-y: scroll;
+  padding-right: 1.5em;
 }
 
 .resCard {
   text-align: center;
   flex-basis: 45%;
-  height: 25em;
+  min-height: 25em;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  border-radius: 5px;
+  border-radius: 10px;
   margin-bottom: 2em;
   background: rgb(113, 223, 243);
   background: linear-gradient(
@@ -99,7 +106,9 @@ h1 {
     rgba(120, 187, 206, 1) 50%,
     rgba(124, 184, 242, 1) 100%
   );
-  box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+  box-shadow: rgba(0, 0, 0, 0.16) 8px 7px 3px 0px,
+    rgba(0, 0, 0, 0.23) 0px 3px 6px;
+  padding: 1em;
 
   h1 {
     text-transform: uppercase;
@@ -178,7 +187,6 @@ h1 {
   font-family: 'Ubuntu', sans-serif;
 }
 
-
 .dropDownLabel {
   font-family: 'Belanosima';
   text-shadow: 0.1rem 0.1rem 0.1rem rgba(138, 100, 141, 0.6);
@@ -201,7 +209,6 @@ h1 {
   font-family: 'Belanosima';
   text-shadow: 0.1rem 0.1rem 0.1rem rgba(138, 100, 141, 0.6);
 }
-
 
 .dropDownLabel {
   font-family: 'Belanosima';
@@ -249,18 +256,18 @@ h1 {
   display: flex;
   flex-direction: row;
   padding: 0.5em;
+  height: 100%;
 }
 
 #mapiframe {
   width: 50vw;
-  height: 98vh;
+  height: 100%;
   border: 0;
-  padding: 0.5em;
-  padding-top: 5em;
+  margin: 0 0.5em 2em;
   position: sticky;
   top: 0;
   overflow: hidden;
-  margin-bottom: 2em;
+  border-radius: 10px;
 }
 
 #restaurantPreview {
