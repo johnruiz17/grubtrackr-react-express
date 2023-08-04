@@ -1,16 +1,25 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import '../styles/main.scss';
 
 const RestaurantReviewCard = () => {
 	const navigate = useNavigate();
     const reviews = useSelector((state) => state.review);
-	const name = useSelector((state) => state.name);
+	// const additionalData = useSelector((state) => state.additionalData);
 
-	console.log(reviews);
+	const reviewArr = [];
+	reviews.reviews.reviews.forEach((review) => {
+		reviewArr.push(<><br></br>{review.text}<br></br></>);
+	});
 
-	// const { name, image_url, rating, review_count, categories, price } = info;
+	const handleBackClick = () => {
+		// Navigates to the root directory
+		navigate('/');
+	};
+
+	const { name, image_url, rating, review_count, price, address, phone, transactions, categories } = reviews.additionalData;
 
 	return (
 		<div className='resCard'>
@@ -18,10 +27,10 @@ const RestaurantReviewCard = () => {
 			<h2>Cuisine: {categories[0].title}</h2>
 			<img id='restaurantPreview' src={image_url}></img>
 			<p>
-				<strong>Address: </strong> {name}
+				<strong>Address: </strong> {address}
 			</p>
 			<p>
-				<strong>Contact: </strong> {rating}
+				<strong>Contact: </strong> {phone}
 			</p>
 			<p>
 				<strong>Rating: </strong> {rating}
@@ -33,9 +42,12 @@ const RestaurantReviewCard = () => {
 				<strong>Price: </strong> {price}
 			</p>
             <p>
-				<strong>Reviews: </strong> {reviews}
+				<strong>Reviews: </strong> {reviewArr}
 			</p>
-            <button onClick={navigate('/')}>Back</button>
+			{/* <p>
+				<strong>Transactions: </strong> {transactions}
+			</p> */}
+			<button class="search-button" onClick={handleBackClick}>Back</button>
 		</div>
 	);
   };

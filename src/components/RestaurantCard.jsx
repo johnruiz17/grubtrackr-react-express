@@ -8,7 +8,8 @@ import { updateAdditionalData, updateReview } from '../slices/reviewSlice';
 const RestaurantCard = ({ info, restaurantId, address, phone, transactions, categories }) => {
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
-	const additionalData = { address: address, phone: phone, transactions: transactions, categories: categories };
+	const { name, image_url, rating, review_count, price } = info;
+	const additionalData = { name: name, image_url: image_url, rating: rating, review_count: review_count, price: price, address: address, phone: phone, transactions: transactions, categories: categories };
 
   const handleRestaurantClick = async (restaurantId) => {
     try {
@@ -19,6 +20,7 @@ const RestaurantCard = ({ info, restaurantId, address, phone, transactions, cate
       const reviews = await jsonData.json();
       console.log(reviews, 'reviews');
       dispatch(updateReview(reviews));
+	  dispatch(updateAdditionalData(additionalData));
       navigate('/restaurant');
 	  // store the name, image_url, rating, review_count, categories, and price in state
 	  // dispatch(updateinfo(name, image_url, rating, review_count, categories, price));
@@ -30,7 +32,7 @@ const RestaurantCard = ({ info, restaurantId, address, phone, transactions, cate
     navigate('/restaurant');
   };
 
-	const { name, image_url, rating, review_count, price } = info;
+	
 	const position = {
 		lat: info.coordinates.latitude,
 		lng: info.coordinates.longitude

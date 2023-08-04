@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import '../styles/main.scss';
 import Mapcontainer from '../components/Map.jsx';
 import RestaurantDisplay from './RestaurantDisplay.jsx';
+import RestaurantReviewCard from '../components/RestaurantReviewCard';
 
 const Restaurantmapcontainer = () => {
   return (
@@ -15,7 +16,7 @@ const Restaurantmapcontainer = () => {
           />
           <Route
             path='/restaurant'
-            element={<div>render restaurant component here</div>}
+            element={<RestaurantReviewCard />}
           />
         </Routes>
       </Router>
