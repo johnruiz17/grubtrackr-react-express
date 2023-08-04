@@ -13,7 +13,7 @@ import {
   InfoWindow,
 } from '@react-google-maps/api';
 import { useDispatch, useSelector } from 'react-redux';
-import { moveCenter } from '../slices/googleSlice';
+import { Link } from 'react-router-dom';
 const { GOOGLE_API_KEY } = require('../../server/envVars');
 
 let mapRef;
@@ -54,8 +54,19 @@ export default function Map() {
   const stateCenter = useSelector((state) =>
     mapRef.current?.panTo(state.google.center)
   );
+  console.log(restaurants);
 
   const renderMarker = useCallback((rest) => {
+    const icon = {
+      url: 'http://maps.google.com/mapfiles/kml/shapes/dining.png',
+      scaledSize: new google.maps.Size(25, 25),
+      origin: new google.maps.Point(0, 0),
+      anchor: new google.maps.Point(0, 0),
+    };
+    if (rest.categories.some((cat) => /bar/i.test(cat.alias))) {
+      icon.url = 'http://maps.google.com/mapfiles/kml/shapes/bars.png';
+    }
+
     return (
       <Marker
         key={rest.id}
@@ -63,7 +74,8 @@ export default function Map() {
           lat: rest.coordinates.latitude,
           lng: rest.coordinates.longitude,
         }}
-        title={rest.name}
+        content={<a href={rest.url}>{rest.name}</a>}
+        icon={icon}
         onClick={() => handleActiveMarker(rest.id)}
       >
         {activeMarker === rest.id ? (
